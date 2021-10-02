@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../stylized-neural-painting/.idea/stylized-neural-painting.iml" filepath="$PROJECT_DIR$/../stylized-neural-painting/.idea/stylized-neural-painting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/testing_RA_env.iml" filepath="$PROJECT_DIR$/.idea/testing_RA_env.iml" />
+    </modules>
+  </component>
+</project>

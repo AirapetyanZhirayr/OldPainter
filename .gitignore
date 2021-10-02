@@ -1,0 +1,6 @@
+checkpoints_G_fix_w/*
+batch_*.txt
+*_animated.mp4
+exp_image/*
+testing_carrets/*
+output/*
