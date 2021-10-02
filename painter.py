@@ -337,7 +337,7 @@ class ProgressivePainter(PainterBase):
 
 
         self.video_writer = cv2.VideoWriter(
-            self.img_name + '_animated.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 40,
+            self.img_name + '_animated.mp4', cv2.VideoWriter_fourcc(*self.args['video']), 40,
             (self.out_w, self.out_h))
 
     def stroke_parser(self):
