@@ -25,7 +25,7 @@ args = {
     'max_divide' : 4,
     'iterations_per_block' : 5*6,
     'beta_L1' : 1.0,
-    'with_ot_loss' : True,
+    'with_ot_loss' : False,
     'beta_ot' : 0.1,
     'net_G' : 'zou-fusion-net',
     'renderer_checkpoint_dir' : 'checkpoints_G_fix_w',
