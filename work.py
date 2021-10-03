@@ -14,18 +14,21 @@ from painter import *
 # from imitator import*
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
+
+
 args = {
     'train' : False,
-    'img_path' : 'test_images/munk.jpg',
+    'img_path' : 'test_images/horse.jpg',
     'renderer' : 'oilpaintbrush',
     'canvas_color' : 'white',
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
-    'max_m_strokes' : 30*6,
-    'max_divide' : 4,
-    'iterations_per_block' : 5*6,
+    'max_m_strokes' : 14*3 if device.type=='cpu' else 30*6,
+    'max_divide' : 3,
+    'start_div': 1,
+    'iterations_per_block' : 2*3 if device.type=='cpu' else 5*6,
     'beta_L1' : 1.0,
-    'with_ot_loss' : False,
+    'with_ot_loss' : False if device.type == 'cpu' else True,
     'beta_ot' : 0.1,
     'net_G' : 'zou-fusion-net',
     'renderer_checkpoint_dir' : 'checkpoints_G_fix_w',
@@ -37,7 +40,6 @@ args = {
     'checkpoint_dir' : 'checkpoints_G_fix_w',
     'batch_size' : 64,
     'print_models' : False,
-    'start_div' : 1,
     'replays' : 1,
     'kuka_width' : 300,  # in mm
     'kuka_height' : 300,  # in mm
@@ -47,9 +49,11 @@ args = {
     'colors_dir' : 'colors',
     'save_video' : True,
     'max_w' : 0.05,
-    'max_h' : 0.1
+    'max_h' : 0.1,
+    'video' : 'MP4V'
 }
 
+SCALE = True
 
 #!g1.1
 def optimize_x(pt):
@@ -100,10 +104,12 @@ def optimize_x(pt):
                     pt.optimizer_x.zero_grad()
 
                     pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
-                    # pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, args['max_w']*pt.m_grid)
-                    # pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, args['max_h']*pt.m_grid)
-                    pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.9)
-                    pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.9)
+                    if SCALE:
+                        pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, args['max_w']*pt.m_grid)
+                        pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, args['max_h']*pt.m_grid)
+                    else:
+                        pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.5)
+                        pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.5)
                     pt.x_color.data = torch.clamp(pt.x_color.data, 0, 0.9)
                     pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 0.9)
 
@@ -112,8 +118,12 @@ def optimize_x(pt):
                     pt._backward_x()
 
                     pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
-                    # pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, args['max_w']*pt.m_grid)
-                    # pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, args['max_h']*pt.m_grid)
+                    if SCALE:
+                        pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, args['max_w']*pt.m_grid)
+                        pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, args['max_h']*pt.m_grid)
+                    else:
+                        pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.5)
+                        pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.5)
                     pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 1)
                     pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 1)
 
