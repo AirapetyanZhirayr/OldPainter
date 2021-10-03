@@ -25,7 +25,7 @@ args = {
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
     'max_m_strokes' : 14*3 if device.type=='cpu' else 30*6,
-    'max_divide' : 3 if device.type=='cpu' else 4
+    'max_divide' : 3 if device.type=='cpu' else 4,
     'start_div': 1,
     'iterations_per_block' : 2*3 if device.type=='cpu' else 5*6,
     'beta_L1' : 1.0,
