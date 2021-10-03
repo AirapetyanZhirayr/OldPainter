@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import random
 import utils
+import os
 from KukaLogJSON import KukaLog
 
 from loss import PixelLoss
@@ -27,6 +28,11 @@ class Renderer:
         self.canvas_color = args['canvas_color']
         self.canvas = None
         self.create_empty_canvas()
+        self.make_log = args['KukaLog']
+        self.batch_dir = args['batch_dir']
+        self.img_path = args['img_path']
+        self.img_name = os.path.split(self.img_path)[-1]
+        self.img_name, self.img_extension = self.img_name.split('.')
 
         self.train = args['train']
 
@@ -69,8 +75,12 @@ class Renderer:
                 'Wrong renderer name %s (choose one from [watercolor, markerpen, oilpaintbrush, rectangle] ...)'
                 % self.renderer)
 
+    # def create_log(self, batch_id):
+    #     self.log = KukaLog(batch_id)
+    #     self.log.addChangeBrush(0)
+
     def create_log(self, batch_id):
-        self.log = KukaLog(batch_id)
+        self.log = KukaLog(self.batch_dir, self.img_name, batch_id)
         self.log.addChangeBrush(0)
 
     def end_log(self):
@@ -177,10 +187,10 @@ class Renderer:
         # brush = self.choose_brush(h, w)
         brush = self.brush_large_horizontal
         color_index, [_R0, _G0, _B0] = self.choose_color([R0, G0, B0])
-
-        self.log.addColorBrush(color_index)
-        self.log.addTestStroke()
-        self.send_kuka_coords([x0, y0], h, w, theta)
+        if self.make_log:
+            self.log.addColorBrush(color_index)
+            self.log.addTestStroke()
+            self.send_kuka_coords([x0, y0], h, w, theta)
 
         self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
             brush, self.CANVAS_WIDTH, self.CANVAS_WIDTH,
@@ -244,8 +254,8 @@ class Renderer:
         left_point = to_float(left_point*normalization + shift_coords)
         mid_point = to_float(mid_point*normalization + shift_coords)
         right_point = to_float(left_point*normalization + shift_coords)
-
-        self.log.addSplineStroke(*left_point, *mid_point, *right_point)
+        if self.make_log:
+            self.log.addSplineStroke(*left_point, *mid_point, *right_point)
 
     def choose_color(self, color):
         color = np.array(color)[None,:]

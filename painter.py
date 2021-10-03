@@ -116,8 +116,15 @@ class PainterBase():
         x_color = v[:, :, d_shape:d_shape + d_color]
         x_alpha = v[:, :, d_shape + d_color:d_shape + d_color + d_alpha]
         print('saving stroke parameters...')
+        file_name = os.path.join(self.output_dir, self.img_name)
+        if os.path.exists(file_name) is False:
+            os.mkdir(file_name)
+        name = f'{self.img_name}_{self.n_colors}c_{self.m_strokes}s'
+        if self.clamped:
+            name += '_clamped'
+
         file_name = os.path.join(
-            self.output_dir, self.img_name)
+            file_name, name)
         np.savez(file_name + '_strokes.npz', x_ctt=x_ctt, x_w=x_w, x_h=x_h,
                  x_color=x_color, x_alpha=x_alpha)
 
@@ -147,9 +154,12 @@ class PainterBase():
 
         file_name = os.path.join(
             self.output_dir, self.img_name)
+        if os.path.exists(file_name) is False:
+            os.mkdir(file_name)
 
         print('rendering canvas...')
-        self.rderr.create_log(self.batch_id)
+        if self.make_log:
+            self.rderr.create_log(self.batch_id)
 
 
         for i in range(index, v.shape[0]):  # for each stroke
@@ -166,15 +176,19 @@ class PainterBase():
         if save_jpgs:
             print('saving input photo...')
             out_img = cv2.resize(self.img_, (out_w, out_h), cv2.INTER_AREA)
-            plt.imsave(file_name + '_input.png', out_img)
+            plt.imsave(file_name + f'/{self.img_name}_input.png', out_img)
 
         final_rendered_image = np.copy(this_frame)
         if save_jpgs:
             print('saving final rendered result...')
+            file_name = os.path.join(file_name, f'{self.img_name}_{self.n_colors}c_{self.m_strokes}s')
+            if self.clamped:
+                file_name += '_clamped'
             plt.imsave(file_name + '_final_{}.png'.format(self.batch_id), final_rendered_image)
         #             plt.imsave(file_name + '_final_my.png', my_frame)
 
-        self.rderr.end_log()
+        if self.make_log:
+            self.rderr.end_log()
 
         return final_rendered_image
 
@@ -318,13 +332,15 @@ class ProgressivePainter(PainterBase):
         self.max_divide = args['max_divide']
         self.max_m_strokes = args['max_m_strokes']
 
-        self.m_strokes_per_block = self.stroke_parser()
+        self.make_log = args['KukaLog']
+
+        self.m_strokes_per_block, self.m_strokes = self.stroke_parser()
         print(f'Strokes per block : {self.m_strokes_per_block}')
         self.m_grid = None
 
         self.img_path = args['img_path']
         self.img_name = os.path.split(self.img_path)[-1]
-        self.img_name, self.img_extansion = self.img_name.split('.')
+        self.img_name, self.img_extension = self.img_name.split('.')
         self.img_ = cv2.imread(args['img_path'], cv2.IMREAD_COLOR)
         self.img_ = cv2.cvtColor(self.img_, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
         self.n_colors = args['n_colors']
@@ -334,10 +350,12 @@ class ProgressivePainter(PainterBase):
         self.input_aspect_ratio = self.img_.shape[0] / self.img_.shape[1]
         self.img_ = cv2.resize(self.img_, (self.net_G.out_size * args['max_divide'],
                                            self.net_G.out_size * args['max_divide']), cv2.INTER_AREA)
-
-
+        self.clamped = args['clamp']
+        self.subscript = '_' + str(self.n_colors) + 'c_' + str(self.m_strokes) + 's'
+        if self.clamped:
+            self.subscript += '_clamped'
         self.video_writer = cv2.VideoWriter(
-            self.img_name + '_animated.mp4', cv2.VideoWriter_fourcc(*self.args['video']), 40,
+            self.img_name + self.subscript +'_animated.mp4', cv2.VideoWriter_fourcc(*self.args['video']), 40,
             (self.out_w, self.out_h))
 
     def stroke_parser(self):
@@ -345,8 +363,10 @@ class ProgressivePainter(PainterBase):
         total_blocks = 0
         for i in range(self.start_divide, self.max_divide + 1):
             total_blocks += i ** 2
+        m_strokes_per_block = self.max_m_strokes // total_blocks
+        m_strokes = m_strokes_per_block*total_blocks
 
-        return int(self.max_m_strokes / total_blocks)
+        return m_strokes_per_block, m_strokes
 
     def _drawing_step_states(self):
         acc = self._compute_acc().item()

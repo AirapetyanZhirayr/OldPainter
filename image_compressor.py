@@ -17,7 +17,12 @@ class ImgCompress:
         self.image = image
         self.n_clusters = n_clusters
         self.save_dir = save_dir
+        if os.path.exists(self.save_dir) is False:
+            os.mkdir(self.save_dir)
         self.img_name = img_name
+        self.save_dir = os.path.join(self.save_dir, self.img_name)
+        if os.path.exists(self.save_dir) is False:
+            os.mkdir(self.save_dir)
         # preparing data, using pixel coordinates as additional features
 #         ind = np.indices(self.image.shape[:2]).transpose(1,2,0)
 #         self.features = np.dstack((ind, self.image)).reshape(-1, 5)
@@ -99,14 +104,14 @@ class ImgCompress:
         return labels, discrete_colors
 
     def save_colors(self):
-        if os.path.exists(self.save_dir) is False:
-            os.mkdir(self.save_dir)
-        file_dir = os.path.join(self.save_dir, self.img_name + '_' + str(self.n_clusters) + 'colorsRGB')
+        file_dir = os.path.join(self.save_dir, self.img_name + f'_{self.n_clusters}colorsRGB')
         np.save(file_dir, self.cl_centers_rgb)
 
     def save_palette(self):
         color_palette = self.cluster_centers
-        file_dir = os.path.join(self.save_dir, self.img_name+ f'_{self.n_clusters}colors_palette')
+        # print('SAVE_DIR :', self.save_dir)
+        # file_dir = self.save_dir + f'_{self.n_clusters}colors_palette'
+        file_dir = os.path.join(self.save_dir, self.img_name + f'_{self.n_clusters}colors_palette')
         sns.palplot(color_palette, size=0.6)
         plt.savefig(file_dir)
 

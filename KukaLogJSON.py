@@ -4,8 +4,18 @@ import json
 
 class KukaLog():
 
-    def __init__(self, batch_id):
-        result_filepath = os.path.join('./', 'batch_{}.txt'.format(batch_id))
+    # def __init__(self, batch_id):
+    #     result_filepath = os.path.join('./', 'batch_{}.txt'.format(batch_id))
+    #     self.f = open(result_filepath, 'w')
+    #     self.commands = []
+
+    def __init__(self, batch_dir, img_name, batch_id):
+        if os.path.exists(batch_dir) is False:
+            os.mkdir(batch_dir)
+        result_filepath = os.path.join(batch_dir, img_name)
+        if os.path.exists(result_filepath) is False:
+            os.mkdir(result_filepath)
+        result_filepath = os.path.join(result_filepath, f'batch_{batch_id}.txt')
         self.f = open(result_filepath, 'w')
         self.commands = []
 

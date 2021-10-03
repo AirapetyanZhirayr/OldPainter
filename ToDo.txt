@@ -1,0 +1,18 @@
+ 1. Move Batches to Solo Folder Batches. For each img+SCALE create its folder in Batches. Do not change batch names
+
+2.For each animation add scaled or not scaled and number of Strokes
+
+3. In colors for each image create Folder.
+
+
+Что деффенирует анимацию?
+ - число мазков
+ - имя картинки 
+- тип 
+
+Что деффенирует батч?
+	- имя картинки
+
+
+
+batch_id, n_colors, clamped, n_strokes
