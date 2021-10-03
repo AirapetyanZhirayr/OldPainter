@@ -15,28 +15,28 @@ from painter import *
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
-start_div = 1
-max_divide = 5
+start_div = 3
+max_divide = 7
 m_blocks = sum(i**2 for i in range(start_div, max_divide))
 
 
 
 args = {
     'train' : False,
-    'img_path' : 'test_images/munk.jpg',
+    'img_path' : 'test_images/saint_p.jpg',
     'renderer' : 'oilpaintbrush',
     'canvas_color' : 'white',
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
-    'max_m_strokes' : 14*3 if device.type=='cpu' else 750,
+    'max_m_strokes' : 14*3 if device.type=='cpu' else 1000,
     'max_divide' : 3 if device.type=='cpu' else max_divide,
     'start_div': start_div,
-    'iterations_per_block' : 2*3 if device.type=='cpu' else 300,
+    'iterations_per_block' : 2*3 if device.type=='cpu' else 150,
     'KukaLog' : True,
     'clamp' : True,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
-    'with_ot_loss' : False if device.type == 'cpu' else True,
+    'with_ot_loss' : False if device.type == 'cpu' else False,
     'beta_ot' : 0.1,
     'net_G' : 'zou-fusion-net',
     'renderer_checkpoint_dir' : 'checkpoints_G_fix_w',
