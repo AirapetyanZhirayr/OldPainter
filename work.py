@@ -58,7 +58,8 @@ args = {
     'save_video' : False,
     'max_w' : 0.05,
     'max_h' : 0.1,
-    'video' : 'MP4V'
+    'video' : 'MP4V',
+    'use_compressed_ref' : True
 }
 
 if args['KukaLog'] and not args['clamp']:
