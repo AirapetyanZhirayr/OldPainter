@@ -32,7 +32,7 @@ args = {
     'max_divide' : 3 if device.type=='cpu' else max_divide,
     'start_div': start_div,
     'iterations_per_block' : 2*3 if device.type=='cpu' else 150,
-    'KukaLog' : True,
+    'KukaLog' : False,
     'clamp' : True,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
@@ -55,7 +55,7 @@ args = {
     'y_shift' : 0.,  # in mm
     'n_colors': 8,
     'colors_dir' : 'colors',
-    'save_video' : True,
+    'save_video' : False,
     'max_w' : 0.05,
     'max_h' : 0.1,
     'video' : 'MP4V'
@@ -63,7 +63,7 @@ args = {
 
 if args['KukaLog'] and not args['clamp']:
     print('You are logging Unclamped Unrealistic drawing')
-    exit(187)
+    exit(5)
 
 #!g1.1
 def optimize_x(pt):
