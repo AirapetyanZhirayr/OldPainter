@@ -15,21 +15,21 @@ from painter import *
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
-start_div = 3
-max_divide = 7
+start_div = 4
+max_divide = 8
 m_blocks = sum(i**2 for i in range(start_div, max_divide))
 
 
 
 args = {
     'train' : False,
-    'img_path' : 'test_images/saint_p.jpg',
+    'img_path' : 'test_images/cat2.jpg',
     'renderer' : 'oilpaintbrush',
     'canvas_color' : 'white',
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
-    'max_m_strokes' : 14*3 if device.type=='cpu' else 1000,
-    'max_divide' : 3 if device.type=='cpu' else max_divide,
+    'max_m_strokes' : 14*3 if device.type=='cpu' else 600,
+    'max_divide' : max_divide if device.type=='cpu' else max_divide,
     'start_div': start_div,
     'iterations_per_block' : 2*3 if device.type=='cpu' else 150,
     'KukaLog' : True,
