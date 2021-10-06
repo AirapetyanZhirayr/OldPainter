@@ -32,7 +32,7 @@ args = {
     'max_divide' : max_divide if device.type=='cpu' else max_divide,
     'start_div': start_div,
     'iterations_per_block' : 2*3 if device.type=='cpu' else 150,
-    'KukaLog' : False,
+    'KukaLog' : True,
     'clamp' : True,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
