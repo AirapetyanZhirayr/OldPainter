@@ -346,6 +346,8 @@ class ProgressivePainter(PainterBase):
         self.n_colors = args['n_colors']
         self.colors_dir = args['colors_dir']
         self.compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, self.img_name)
+        if args['use_compressed_ref']:
+            self.img_ = self.compressor.image_compressed
         self.rderr.compressor = self.compressor
         self.input_aspect_ratio = self.img_.shape[0] / self.img_.shape[1]
         self.img_ = cv2.resize(self.img_, (self.net_G.out_size * args['max_divide'],
