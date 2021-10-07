@@ -32,7 +32,7 @@ args = {
     'max_m_strokes' : 14*3 if device.type=='cpu' else 500,
     'max_divide' : 3 if device.type=='cpu' else max_divide,
     'start_div': start_div,
-    'iterations_per_block' : 2*3 if device.type=='cpu' else 500,
+    'iterations_per_block' : 2*3 if device.type=='cpu' else 200,
     'KukaLog' : True,
     'clamp' : True,
     'batch_dir' : 'batches',
@@ -119,8 +119,12 @@ def optimize_x(pt):
 
                     pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
                     if args['clamp']:
-                        pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, args['max_w']*pt.m_grid)
-                        pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, args['max_h']*pt.m_grid)
+                        max_w = min(args['max_w']*pt.m_grid/args['kuka_width'], 1)
+                        min_w = args['min_w']*pt.m_grid/args['kuka_width']
+                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)
+                        max_h = min(args['max_h'] * pt.m_grid / args['kuka_height'], 1)
+                        min_h = args['min_h']*pt.m_grid/args['kuka_height']
+                        pt.x_h.data = torch.clamp(pt.x_h.data, min_h, max_h)
                     else:
                         pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.5)
                         pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.5)
