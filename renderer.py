@@ -192,6 +192,11 @@ class Renderer:
             # self.log.addTestStroke()
             self.send_kuka_coords([x0, y0], h, w, theta)
 
+        brush_widths = np.array([2., 4., 5., 6., 8., 10.])/self.kuka_width  # in mm
+        w_idx = np.argmin((brush_widths -  w)**2)
+        w = brush_widths[w_idx]
+
+
         self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
             brush, self.CANVAS_WIDTH, self.CANVAS_WIDTH,
             x0, y0, w, h, theta,
@@ -243,12 +248,12 @@ class Renderer:
         if h > w:
             right_point = mid_point + height_step
             left_point = mid_point - height_step
-            brush_idx = np.argmin((brush_widths - self.kuka_width*w)**2)
+            brush_idx = int(np.argmin((brush_widths - self.kuka_width*w)**2))
 
         else:
             right_point = mid_point + width_step
             left_point = mid_point - width_step
-            brush_idx = np.argmin((brush_widths - self.kuka_width*h)**2)
+            brush_idx = int(np.argmin((brush_widths - self.kuka_width*h)**2))
 
 
         # normalization : from pixels to mm
