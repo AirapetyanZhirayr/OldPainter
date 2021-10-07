@@ -5,16 +5,15 @@ from sklearn import cluster
 import seaborn as sns
 import os
 sns.set()
+# from skimage import color
+
 
 class ImgCompress:
     
     def __init__(self, image, n_clusters, save_dir, img_name):
-    
-        # reading the image as array
-        # self.name = image
-        # self.image=imread(image)
 
-        self.image = image
+        self.image = image  # range [0, 1] RGB img
+        # self.image = color.rgb2lab(image)
         self.n_clusters = n_clusters
         self.save_dir = save_dir
         if os.path.exists(self.save_dir) is False:
@@ -33,11 +32,14 @@ class ImgCompress:
         self.x, self.y, self.z = self.image.shape
         
         # using KMeans to cluster our data to n_clusters
-        clustered_im = cluster.KMeans(n_clusters, random_state=42)
+        clustered_im = cluster.KMeans(n_clusters,
+                                      random_state=42
+                                      )
         clustered_im.fit(self.features)
         self.clusterer = clustered_im
         
         self.cluster_centers = clustered_im.cluster_centers_
+        # self.cluster_centers = color.lab2rgb(self.cluster_centers[None, ...]).squeeze()
         self.cl_centers_rgb = (self.cluster_centers * 255.).astype(np.uint8)
         self.save_colors()
         self.save_palette()
@@ -118,7 +120,8 @@ class ImgCompress:
 
 if __name__ == "__main__":
     from work import args
-
+    # path = '/Users/jiji/Desktop/Учеба/ВШЭ/MLDM (тетрадки+слайды)/Dataset_T1/parrot1.jpg'
     img_ = cv2.imread(args['img_path'], cv2.IMREAD_COLOR)
     img_ = cv2.cvtColor(img_, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
-    img_compressor = ImgCompress(img_, args['n_colors'], args['colors_dir'])
+    img_compressor = ImgCompress(img_, 8, args['colors_dir'], 'joker')
+

@@ -18,6 +18,7 @@ print('device type: ', device.type)
 start_div = 1
 max_divide = 5
 m_blocks = sum(i**2 for i in range(start_div, max_divide))
+# print(m_blocks)
 
 
 
@@ -29,11 +30,11 @@ args = {
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
     'max_m_strokes' : 14*3 if device.type=='cpu' else 500,
-    'max_divide' : max_divide if device.type=='cpu' else max_divide,
+    'max_divide' : 3 if device.type=='cpu' else max_divide,
     'start_div': start_div,
     'iterations_per_block' : 2*3 if device.type=='cpu' else 500,
-    'KukaLog' : False,
-    'clamp' : False,
+    'KukaLog' : True,
+    'clamp' : True,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
     'with_ot_loss' : False if device.type == 'cpu' else False,
@@ -56,8 +57,10 @@ args = {
     'n_colors': 8,
     'colors_dir' : 'colors',
     'save_video' : True,
-    'max_w' : 0.05,
-    'max_h' : 0.1,
+    'max_w' : 10,  # in mm
+    'min_w' : 2, # in mm
+    'max_h' : 50,  # in mm
+    'min_h' : 2,  # in mm
     'video' : 'MP4V',
     'use_compressed_ref' : True
 }
@@ -130,8 +133,12 @@ def optimize_x(pt):
 
                     pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
                     if args['clamp']:
-                        pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, args['max_w']*pt.m_grid)
-                        pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, args['max_h']*pt.m_grid)
+                        max_w = min(args['max_w']*pt.m_grid/args['kuka_width'], 1)
+                        min_w = args['min_w']*pt.m_grid/args['kuka_width']
+                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)
+                        max_h = min(args['max_h'] * pt.m_grid / args['kuka_height'], 1)
+                        min_h = args['min_h']*pt.m_grid/args['kuka_height']
+                        pt.x_h.data = torch.clamp(pt.x_h.data, min_h, max_h)
                     else:
                         pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.5)
                         pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.5)
