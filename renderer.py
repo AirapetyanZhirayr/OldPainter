@@ -189,7 +189,7 @@ class Renderer:
         color_index, [_R0, _G0, _B0] = self.choose_color([R0, G0, B0])
         if self.make_log:
             self.log.addColorBrush(color_index)
-            self.log.addTestStroke()
+            # self.log.addTestStroke()
             self.send_kuka_coords([x0, y0], h, w, theta)
 
         self.foreground, self.stroke_alpha_map = utils.create_transformed_brush(
@@ -227,6 +227,7 @@ class Renderer:
                 brush = self.brush_small_horizontal
 
     def send_kuka_coords(self, mid_point, h, w, theta):
+        brush_widths = np.array([2., 4., 5., 6., 8., 10.])
         mid_point = np.array(mid_point)
         _h = np.array([0, h/2])
         _w = np.array([w/2, 0])
@@ -242,9 +243,13 @@ class Renderer:
         if h > w:
             right_point = mid_point + height_step
             left_point = mid_point - height_step
+            brush_idx = np.argmin((brush_widths - self.kuka_width*w)**2)
+
         else:
             right_point = mid_point + width_step
             left_point = mid_point - width_step
+            brush_idx = np.argmin((brush_widths - self.kuka_width*h)**2)
+
 
         # normalization : from pixels to mm
         normalization = np.array([self.kuka_width, self.kuka_height])/self.CANVAS_WIDTH
@@ -255,6 +260,7 @@ class Renderer:
         mid_point = to_float(mid_point*normalization + shift_coords)
         right_point = to_float(left_point*normalization + shift_coords)
         if self.make_log:
+            self.log.addChangeBrush(brush_idx)
             self.log.addSplineStroke(*left_point, *mid_point, *right_point)
 
     def choose_color(self, color):
