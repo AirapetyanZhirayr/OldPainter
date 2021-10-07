@@ -15,25 +15,25 @@ from painter import *
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
-start_div = 4
-max_divide = 8
+start_div = 1
+max_divide = 5
 m_blocks = sum(i**2 for i in range(start_div, max_divide))
 
 
 
 args = {
     'train' : False,
-    'img_path' : 'test_images/cat2.jpg',
+    'img_path' : 'test_images/joker.jpg',
     'renderer' : 'oilpaintbrush',
     'canvas_color' : 'white',
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
-    'max_m_strokes' : 14*3 if device.type=='cpu' else 600,
+    'max_m_strokes' : 14*3 if device.type=='cpu' else 500,
     'max_divide' : max_divide if device.type=='cpu' else max_divide,
     'start_div': start_div,
-    'iterations_per_block' : 2*3 if device.type=='cpu' else 150,
-    'KukaLog' : True,
-    'clamp' : True,
+    'iterations_per_block' : 2*3 if device.type=='cpu' else 500,
+    'KukaLog' : False,
+    'clamp' : False,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
     'with_ot_loss' : False if device.type == 'cpu' else False,
@@ -55,7 +55,7 @@ args = {
     'y_shift' : 0.,  # in mm
     'n_colors': 8,
     'colors_dir' : 'colors',
-    'save_video' : False,
+    'save_video' : True,
     'max_w' : 0.05,
     'max_h' : 0.1,
     'video' : 'MP4V',
