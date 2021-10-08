@@ -177,22 +177,28 @@ class Renderer:
         # colors = [[0.0, 0.0, 0.0], [0.39, 0.26, 0.07], [0.0, 0.74, 1.0]]
 
         x0, y0, theta, w, h, = self.stroke_params[0:5]
+        # brush = self.choose_brush(h, w)
+        brush = self.brush_large_horizontal
         R0, G0, B0, ALPHA = self.stroke_params[5:]
+        color_index, [_R0, _G0, _B0] = self.choose_color([R0, G0, B0])
+        brush_widths = np.array([2., 4., 5., 6., 8., 10.])
+        w_idx = np.argmin(np.abs(brush_widths - w*self.kuka_width))
+        w = brush_widths[w_idx] / self.kuka_width
+
+
         x0 = _normalize(x0, self.CANVAS_WIDTH)
         y0 = _normalize(y0, self.CANVAS_WIDTH)
         w = int(1 + w * self.CANVAS_WIDTH)
         h = int(1 + h * self.CANVAS_WIDTH)
         theta = np.pi * theta
 
-        # brush = self.choose_brush(h, w)
-        brush = self.brush_large_horizontal
-        color_index, [_R0, _G0, _B0] = self.choose_color([R0, G0, B0])
+
         if self.make_log:
             self.log.addColorBrush(color_index)
             # self.log.addTestStroke()
             self.send_kuka_coords([x0, y0], h, w, theta)
 
-        brush_widths = np.array([2., 4., 5., 6., 8., 10.])/self.kuka_width  # in mm
+
         w_idx = np.argmin((brush_widths -  w)**2)
         w = brush_widths[w_idx]
 

@@ -16,7 +16,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
 start_div = 1
-max_divide = 5
+max_divide = 6
 m_blocks = sum(i**2 for i in range(start_div, max_divide))
 # print(m_blocks)
 
@@ -29,15 +29,15 @@ args = {
     'canvas_color' : 'white',
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
-    'max_m_strokes' : 14*3 if device.type=='cpu' else 500,
+    'max_m_strokes' : 14*3 if device.type=='cpu' else 1000,
     'max_divide' : 3 if device.type=='cpu' else max_divide,
     'start_div': start_div,
-    'iterations_per_block' : 2*3 if device.type=='cpu' else 200,
+    'iterations_per_block' : 2*3 if device.type=='cpu' else 500,
     'KukaLog' : True,
     'clamp' : True,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
-    'with_ot_loss' : False if device.type == 'cpu' else False,
+    'with_ot_loss' : False if device.type == 'cpu' else True,
     'beta_ot' : 0.1,
     'net_G' : 'zou-fusion-net',
     'renderer_checkpoint_dir' : 'checkpoints_G_fix_w',
@@ -50,17 +50,17 @@ args = {
     'batch_size' : 64,
     'print_models' : False,
     'replays' : 1,
-    'kuka_width' : 300,  # in mm
-    'kuka_height' : 300,  # in mm
+    'kuka_width' : 300.,  # in mm
+    'kuka_height' : 200.,  # in mm
     'x_shift' : 0.,  # in mm
     'y_shift' : 0.,  # in mm
+    'max_w' : 10.,  # in mm
+    'min_w' : 2., # in mm
+    'max_h' : 30.,  # in mm
+    'min_h' : 2.,  # in mm
     'n_colors': 8,
     'colors_dir' : 'colors',
     'save_video' : True,
-    'max_w' : 10,  # in mm
-    'min_w' : 2, # in mm
-    'max_h' : 50,  # in mm
-    'min_h' : 2,  # in mm
     'video' : 'MP4V',
     'use_compressed_ref' : True
 }
@@ -121,10 +121,12 @@ def optimize_x(pt):
                     if args['clamp']:
                         max_w = min(args['max_w']*pt.m_grid/args['kuka_width'], 1)
                         min_w = args['min_w']*pt.m_grid/args['kuka_width']
-                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)
+                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)  # w*w_k/m_grid < w_max
+
                         max_h = min(args['max_h'] * pt.m_grid / args['kuka_height'], 1)
                         min_h = args['min_h']*pt.m_grid/args['kuka_height']
                         pt.x_h.data = torch.clamp(pt.x_h.data, min_h, max_h)
+
                     else:
                         pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.5)
                         pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.5)
@@ -139,16 +141,13 @@ def optimize_x(pt):
                     if args['clamp']:
                         max_w = min(args['max_w']*pt.m_grid/args['kuka_width'], 1)
                         min_w = args['min_w']*pt.m_grid/args['kuka_width']
-                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)
+                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)  # w*w_k/m_grid < w_max
                         max_h = min(args['max_h'] * pt.m_grid / args['kuka_height'], 1)
                         min_h = args['min_h']*pt.m_grid/args['kuka_height']
                         pt.x_h.data = torch.clamp(pt.x_h.data, min_h, max_h)
                     else:
                         pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 0.5)
                         pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 0.5)
-                    pt.x_w.data = torch.clamp(pt.x_w.data, 0.02, 1)
-                    pt.x_h.data = torch.clamp(pt.x_h.data, 0.02, 1)
-
 
                     pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1)
                     pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1)
@@ -157,7 +156,7 @@ def optimize_x(pt):
                     pt.step_id += 1
             # all strokes are already rendered on pt.G_final_pred_canvas
             v = pt._normalize_strokes(pt.x)  # from patch coords to img coords
-            v = pt._shuffle_strokes_and_reshape(v)
+            v = pt._shuffle_strokes_and_reshape(v)  # may be change to optimal sorting
             PARAMS = np.concatenate([PARAMS, v], axis=1)
             CANVAS_tmp = pt._render(PARAMS, PARAMS.shape[1] - v.shape[1], save_jpgs=True, save_video=args['save_video'])
             print(CANVAS_tmp.shape)
