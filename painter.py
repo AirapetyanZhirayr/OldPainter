@@ -21,6 +21,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 class PainterBase():
+
     def __init__(self, args):
         self.args = args
 
@@ -29,55 +30,20 @@ class PainterBase():
         # define G
         self.net_G = define_G(rdrr=self.rderr, netG=args['net_G']).to(device)
 
-        self.batch_id = -1
-
-        # define some other vars to record the training states
-        self.x_ctt = None
-        self.x_w = None
-        self.x_h = None
-        self.x_color = None
-        self.x_alpha = None
-
-        self.G_pred_foreground = None
-        self.G_pred_alpha = None
-        self.G_final_pred_canvas = torch.zeros(
-            [1, 3, self.net_G.out_size, self.net_G.out_size]).to(device)  # не нужен
-
         self.G_loss = torch.tensor(0.0)
         self.real_loos = torch.tensor(0.0)
-        self.step_id = 0
-        self.anchor_id = 0
+
         self.renderer_checkpoint_dir = args['renderer_checkpoint_dir']
         self.output_dir = args['output_dir']
+        if os.path.exists(self.output_dir) is False: os.mkdir(self.output_dir)
+        self.video_dir = args['video_dir']
+        if os.path.exists(self.video_dir) is False: os.mkdir(self.video_dir)
+
         self.lr = args['lr']
 
         # define the loss functions
         self._pxl_loss = loss.PixelLoss(p=1)
         self._sinkhorn_loss = loss.SinkhornLoss(epsilon=0.01, niter=5, normalize=False)
-
-        # some other vars to be initialized in child classes
-        self.input_aspect_ratio = None
-        self.img_path = None
-        self.img_batch = None
-        self.img_ = None
-        self.final_rendered_images = None
-        self.m_grid = None
-        self.m_strokes_per_block = None
-
-        if os.path.exists(self.output_dir) is False:
-            os.mkdir(self.output_dir)
-
-        if self.args['keep_aspect_ratio']:
-            if self.input_aspect_ratio < 1:
-                self.out_h = int(self.args['canvas_size'] * self.input_aspect_ratio)
-                self.out_w = self.args['canvas_size']
-            else:
-                self.out_h = self.args['canvas_size']
-                self.out_w = int(self.args['canvas_size'] / self.input_aspect_ratio)
-        else:
-            self.out_h = self.args['canvas_size']
-            self.out_w = self.args['canvas_size']
-
 
     def _load_checkpoint(self):
 
@@ -138,19 +104,10 @@ class PainterBase():
 
         return v
 
-    def _render(self, v, index, save_jpgs=True, save_video=True, addeds=np.empty(0)):
+    def _render(self, v, index, save_jpgs=True, save_video=True):
 
         v = v[0, :, :]
-        if self.args['keep_aspect_ratio']:
-            if self.input_aspect_ratio < 1:
-                out_h = int(self.args['canvas_size'] * self.input_aspect_ratio)
-                out_w = self.args['canvas_size']
-            else:
-                out_h = self.args['canvas_size']
-                out_w = int(self.args['canvas_size'] / self.input_aspect_ratio)
-        else:
-            out_h = self.args['canvas_size']
-            out_w = self.args['canvas_size']
+        out_h, out_w = self.out_h, self.out_w
 
         file_name = os.path.join(
             self.output_dir, self.img_name)
@@ -160,7 +117,6 @@ class PainterBase():
         print('rendering canvas...')
         if self.make_log:
             self.rderr.create_log(self.batch_id)
-
 
         for i in range(index, v.shape[0]):  # for each stroke
             self.rderr.stroke_params = v[i, :]
@@ -323,20 +279,24 @@ class PainterBase():
         self.G_final_pred_canvas = self.G_pred_canvas
 
 
+
 class ProgressivePainter(PainterBase):
 
     def __init__(self, args):
         super(ProgressivePainter, self).__init__(args=args)
 
-        self.start_divide = args['start_div']
+        self.kuka_interaction = args['KukaInteraction']
+
+        self.start_divide = args['start_divide']
         self.max_divide = args['max_divide']
         self.max_m_strokes = args['max_m_strokes']
 
         self.make_log = args['KukaLog']
+        self.use_compressed_ref = args['use_compressed_ref']
+        self.keep_aspect_ratio = args['keep_aspect_ratio']
 
         self.m_strokes_per_block, self.m_strokes = self.stroke_parser()
         print(f'Strokes per block : {self.m_strokes_per_block}')
-        self.m_grid = None
 
         self.img_path = args['img_path']
         self.img_name = os.path.split(self.img_path)[-1]
@@ -345,20 +305,36 @@ class ProgressivePainter(PainterBase):
         self.img_ = cv2.cvtColor(self.img_, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
         self.n_colors = args['n_colors']
         self.colors_dir = args['colors_dir']
-        self.compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, self.img_name)
-        if args['use_compressed_ref']:
-            self.img_ = self.compressor.image_compressed
-        self.rderr.compressor = self.compressor
+        compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, self.img_name)
+        if self.use_compressed_ref:
+            self.img_ = compressor.image_compressed
+        self.rderr.compressor = compressor
         self.input_aspect_ratio = self.img_.shape[0] / self.img_.shape[1]
-        self.img_ = cv2.resize(self.img_, (self.net_G.out_size * args['max_divide'],
-                                           self.net_G.out_size * args['max_divide']), cv2.INTER_AREA)
+
+        if self.keep_aspect_ratio:
+            if self.input_aspect_ratio < 1:
+                self.out_h = int(self.args['canvas_size'] * self.input_aspect_ratio)
+                self.out_w = self.args['canvas_size']
+            else:
+                self.out_h = self.args['canvas_size']
+                self.out_w = int(self.args['canvas_size'] / self.input_aspect_ratio)
+        else:
+            self.out_h = self.args['canvas_size']
+            self.out_w = self.args['canvas_size']
+
+
+        self.img_ = cv2.resize(self.img_, (self.net_G.out_size * self.max_divide,
+                                           self.net_G.out_size * self.max_divide), cv2.INTER_AREA)
         self.clamped = args['clamp']
-        self.subscript = '_' + str(self.n_colors) + 'c_' + str(self.m_strokes) + 's'
-        if self.clamped:
-            self.subscript += '_clamped'
+        self.img_subscript = f'_{self.n_colors}c_{self.m_strokes}s'
+        if self.clamped: self.img_subscript += '_clamped'
+        self.video_path = os.path.join(self.video_dir, self.img_name + self.img_subscript + '.mp4')
         self.video_writer = cv2.VideoWriter(
-            self.img_name + self.subscript +'_animated.mp4', cv2.VideoWriter_fourcc(*self.args['video']), 40,
+            self.video_path, cv2.VideoWriter_fourcc(*self.args['video']), 40,
             (self.out_w, self.out_h))
+
+    def __setattr__(self, key, value):
+        self.__dict__[key] = value
 
     def stroke_parser(self):
 
