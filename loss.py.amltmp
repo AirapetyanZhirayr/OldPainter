@@ -1,5 +1,4 @@
 import torch
-# delete this line
 import torch
 import torch.nn as nn
 import torchvision
