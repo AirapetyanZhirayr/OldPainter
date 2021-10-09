@@ -8,6 +8,7 @@ import pickle
 import os
 import time
 import numpy as np
+import cv2
 
 import utils
 from painter import *
@@ -15,64 +16,73 @@ from painter import *
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
-start_div = 1
-max_divide = 6
-m_blocks = sum(i**2 for i in range(start_div, max_divide))
-# print(m_blocks)
 
 
 
 args = {
+    # TRAIN OR NOT NECESSARY PARAMS
     'train' : False,
+    'net_G': 'zou-fusion-net',
+    'renderer_checkpoint_dir': 'checkpoints_G_fix_w',
+    'disable_preview': True,
+    'max_num_epochs': 400,
+    'vis_dir': 'val_out_G',
+    'checkpoint_dir': 'checkpoints_G_fix_w',
+    'batch_size': 64,
+    'print_models': False,
+    'replays': 1,
+    'renderer': 'oilpaintbrush',
+    'canvas_color': 'white',
+
+
     'img_path' : 'test_images/joker.jpg',
-    'renderer' : 'oilpaintbrush',
-    'canvas_color' : 'white',
     'canvas_size' : 512,
     'keep_aspect_ratio' : False,
     'max_m_strokes' : 14*3 if device.type=='cpu' else 1000,
-    'max_divide' : 3 if device.type=='cpu' else max_divide,
-    'start_div': start_div,
+    'max_divide' : 3 if device.type=='cpu' else 1,
+    'start_div': 6,
     'iterations_per_block' : 2*3 if device.type=='cpu' else 500,
-    'KukaLog' : True,
-    'clamp' : True,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
     'with_ot_loss' : False if device.type == 'cpu' else True,
     'beta_ot' : 0.1,
-    'net_G' : 'zou-fusion-net',
-    'renderer_checkpoint_dir' : 'checkpoints_G_fix_w',
     'lr' : 0.005,
-    'output_dir' : 'output',
-    'disable_preview' : True,
-    'max_num_epochs' : 400,
-    'vis_dir' : 'val_out_G',
-    'checkpoint_dir' : 'checkpoints_G_fix_w',
-    'batch_size' : 64,
-    'print_models' : False,
-    'replays' : 1,
+    'output_dir': 'output',
+
+    # KUKA
+    'KukaLog': True,
+    'clamp': True,  # whether to clamp brush widths to kuka width range
     'kuka_width' : 300.,  # in mm
     'kuka_height' : 200.,  # in mm
     'x_shift' : 0.,  # in mm
     'y_shift' : 0.,  # in mm
+    'brush_widths' : [10., 21.],  # in mm
+    'brush_widths_dir' : '',
     'max_w' : 10.,  # in mm
     'min_w' : 2., # in mm
     'max_h' : 30.,  # in mm
     'min_h' : 2.,  # in mm
-    'n_colors': 8,
-    'colors_dir' : 'colors',
-    'save_video' : True,
-    'video' : 'MP4V',
-    'use_compressed_ref' : True
+
+
+    # COLORS
+    'n_colors': 8,  #  n of quantized colors
+    'colors_dir': 'colors',
+    # whether to use color-compressed reference or not
+    'use_compressed_ref' : True,
+
+
+    'save_video': True,
+    'video': 'MP4V',
 }
 
 if args['KukaLog'] and not args['clamp']:
-    print('You are logging Unclamped Unrealistic drawing')
+    print('You are logging not clamped unrealistic drawing')
     exit(5)
 
 #!g1.1
 def optimize_x(pt):
 
-    real_img = None
+    # real_img = None
     pt._load_checkpoint()
     pt.net_G.eval()
 
@@ -221,5 +231,6 @@ if __name__ == '__main__':
 
     pt = ProgressivePainter(args=args)
     final_rendered_image = optimize_x(pt)
+
 
 
