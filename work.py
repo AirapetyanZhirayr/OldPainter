@@ -67,9 +67,9 @@ args = {
     # number of consecutive strokes of same color without dipping into pain cup
     'n_without_dipping' : 2,
     'max_w' : 21.,  # in mm
-    'min_w' : 2., # in mm
-    'max_h' : 40.,  # in mms
-    'min_h' : 2.,  # in mm
+    'min_w' : 10., # in mm
+    'max_h' : 40.,  # in mm
+    'min_h' : 10.,  # in mm
 
 
     # COLORS
@@ -85,6 +85,8 @@ args = {
 }
 
 assert args['max_w'] == max(args['brush_widths']), 'max_widths differ'
+assert args['min_w'] == min(args['brush_widths']), 'min_widths differ'
+
 
 if args['KukaLog'] and not args['clamp']:
     print('You are logging not clamped unrealistic drawing')

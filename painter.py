@@ -387,3 +387,8 @@ class ProgressivePainter(PainterBase):
             cv2.imshow('G_pred', vis2[:, :, ::-1])
             cv2.imshow('input', self.img_[:, :, ::-1])
             cv2.waitKey(1)
+
+
+
+
+
