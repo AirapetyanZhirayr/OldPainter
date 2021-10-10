@@ -39,13 +39,13 @@ args = {
     'canvas_color': 'white',
 
 
-    'img_path' : 'test_images/joker.jpg',
+    'img_path' : 'test_images/cat3.jpeg',
     'canvas_size' : 512,
     'keep_aspect_ratio' : True,
-    'max_m_strokes' : 14*3 if device.type=='cpu' else 1000,
-    'max_divide' : 3 if device.type=='cpu' else 10,
-    'start_divide': 1 if device.type=='cpu' else 6,
-    'iterations_per_block' : 2*3 if device.type=='cpu' else 500,
+    'max_m_strokes' : 14*3 if device.type=='cpu' else 1100,
+    'start_divide': 1 if device.type=='cpu' else 5,
+    'max_divide' : 3 if device.type=='cpu' else 9,
+    'iterations_per_block' : 2*3 if device.type=='cpu' else 100,
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
     'with_ot_loss' : False if device.type == 'cpu' else True,
@@ -57,7 +57,7 @@ args = {
     'KukaLog': True,
     'clamp': True,  # whether to clamp brush widths to kuka width range
     'kuka_width' : 300.,  # in mm
-    'kuka_height' : 200.,  # in mm
+    'kuka_height' : 400.,  # in mm
     'x_shift' : 0.,  # in mm
     'y_shift' : 0.,  # in mm
     'suppression_freq' : 25,  # clamp params every `suppression_freq'th` iteration
@@ -68,12 +68,12 @@ args = {
     'n_without_dipping' : 2,
     'max_w' : 21.,  # in mm
     'min_w' : 2., # in mm
-    'max_h' : 30.,  # in mm
+    'max_h' : 40.,  # in mms
     'min_h' : 2.,  # in mm
 
 
     # COLORS
-    'n_colors': 8,  #  n of quantized colors
+    'n_colors': 6,  #  n of quantized colors
     'colors_dir': 'colors',
     # whether to use color-compressed reference or not
     'use_compressed_ref' : True,
@@ -183,6 +183,7 @@ def optimize_x(pt):
                 result_filepath = os.path.join(robot_output_json_path, 'batch_{}_out.pkl'.format(batch_id))
 
                 if args['InteractionTesting']:
+                    if os.path.exists('./exp_image') is False: os.mkdir('./exp_image')
                     with open('./exp_image/img_{}.txt'.format(batch_id), 'w+') as f:
                         # arr.reshape(arr.shape[0], -1)
                         np.savetxt('./exp_image/img_{}.txt'.format(batch_id), CANVAS_tmp.reshape(CANVAS_tmp.shape[0], -1)) # f.write(CANVAS_tmp)
