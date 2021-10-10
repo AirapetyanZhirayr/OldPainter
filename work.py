@@ -21,7 +21,8 @@ print('device type: ', device.type)
 
 args = {
 
-    'KukaInteraction' : False,
+    'KukaInteraction' : True,
+    'InteractionTesting' : True,
 
      # TRAIN OR NOT NECESSARY PARAMS
     'train' : False,
@@ -62,6 +63,9 @@ args = {
     'suppression_freq' : 25,  # clamp params every `suppression_freq'th` iteration
     'brush_widths' : [10., 21.],  # in mm
     'brush_widths_dir' : '',
+
+    # number of consecutive strokes of same color without dipping into pain cup
+    'n_without_dipping' : 2,
     'max_w' : 21.,  # in mm
     'min_w' : 2., # in mm
     'max_h' : 30.,  # in mm
@@ -163,6 +167,7 @@ def optimize_x(pt):
             # all strokes are already rendered on pt.G_final_pred_canvas
             v = pt._normalize_strokes(pt.x)  # from patch coords to img coords
             v = pt._shuffle_strokes_and_reshape(v)  # may be change to optimal sorting
+            v = pt._sort_strokes(v, by='width_color')
             PARAMS = np.concatenate([PARAMS, v], axis=1)
             CANVAS_tmp = pt._render(PARAMS, PARAMS.shape[1] - v.shape[1], save_jpgs=True, save_video=args['save_video'])
             print(CANVAS_tmp.shape)
@@ -177,28 +182,26 @@ def optimize_x(pt):
                 robot_output_json_path = '/media/files/Legacy_API/kuka_api_v1/experiments/experiment_{}'.format(experiment_uuid)
                 result_filepath = os.path.join(robot_output_json_path, 'batch_{}_out.pkl'.format(batch_id))
 
-                # with open('./exp_image/img_{}.txt'.format(batch_id), 'w+') as f:
-                #     # arr.reshape(arr.shape[0], -1)
-                #     np.savetxt('./exp_image/img_{}.txt'.format(batch_id), CANVAS_tmp.reshape(CANVAS_tmp.shape[0], -1)) # f.write(CANVAS_tmp)
+                if args['InteractionTesting']:
+                    with open('./exp_image/img_{}.txt'.format(batch_id), 'w+') as f:
+                        # arr.reshape(arr.shape[0], -1)
+                        np.savetxt('./exp_image/img_{}.txt'.format(batch_id), CANVAS_tmp.reshape(CANVAS_tmp.shape[0], -1)) # f.write(CANVAS_tmp)
 
-                while not os.path.exists(result_filepath):
-                    time.sleep(1)
+                    with open('./exp_image/img_{}.txt'.format(batch_id), 'rb') as f:
+                        # result_data = f.readlines()
+                        result_data = np.loadtxt('./exp_image/img_{}.txt'.format(batch_id)).reshape(
+                            CANVAS_tmp.shape)
+                else:
+                    while not os.path.exists(result_filepath):
+                        time.sleep(1)
+                    result_data = None
+                    with open(result_filepath, 'rb') as f:
+                        result_data = pickle.load(f)
+                    result_data = utils.preproc_camera_image(result_data)
 
-                result_data = None
-                with open(result_filepath, 'rb') as f:
-                    result_data = pickle.load(f)
 
-                # with open('./exp_image/img_{}.txt'.format(batch_id), 'rb') as f:
-                #     #result_data = f.readlines()
-                #     result_data = np.loadtxt('./exp_image/img_{}.txt'.format(batch_id)).reshape(CANVAS_tmp.shape)
-
-                # result_image = result_data['image']
                 result_image = result_data
-
-                result_image = utils.preproc_camera_image(result_image)
-
                 real_img = result_image
-                # real_img_batch = utils.img2patches(real_img, pt.m_grid, pt.net_G.out_size, adder=0.0).to(device)
                 CANVAS_tmp = real_img
 
             if replay == args['replays'] - 1:

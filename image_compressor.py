@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn import cluster
 import seaborn as sns
 import os
-sns.set()
+# sns.set()
 # from skimage import color
 
 
@@ -55,8 +55,8 @@ class ImgCompress:
         img_compressed = self.cluster_centers[self.cluster_labels]
         image_compressed = img_compressed.reshape(self.x, self.y, self.z)
         if save == True:
-            file_dir = os.path.join(self.save_dir, self.img_name + '_'+ str(self.n_clusters) + 'colors.png')
-            plt.imsave(file_dir, image_compressed)
+            file_path = os.path.join(self.save_dir, self.img_name + '_'+ str(self.n_clusters) + 'colors.png')
+            plt.imsave(file_path, image_compressed)
         return image_compressed
 
   

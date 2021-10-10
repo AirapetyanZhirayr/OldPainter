@@ -22,8 +22,13 @@ class Renderer:
 
     def __init__(self, args):
 
-        self.w_idx = -1
+        self.kuka_interaction = args['KukaInteraction']
+        self.brush_idx = -1
         self.color_idx = -1
+        self.brush_widths = np.array(args['brush_widths'])
+        self.same_color_counts = None
+        self.n_without_dipping = args['n_without_dipping']
+
         self.CANVAS_WIDTH = args['canvas_size']
         self.renderer = args['renderer']
         self.stroke_params = None
@@ -77,13 +82,13 @@ class Renderer:
                 'Wrong renderer name %s (choose one from [watercolor, markerpen, oilpaintbrush, rectangle] ...)'
                 % self.renderer)
 
-    # def create_log(self, batch_id):
-    #     self.log = KukaLog(batch_id)
-    #     self.log.addChangeBrush(0)
 
     def create_log(self, batch_id):
-        self.log = KukaLog(self.batch_dir, self.img_name, batch_id)
-        self.log.addChangeBrush(0)
+        if self.kuka_interaction:
+            self.log = KukaLog(self.batch_dir, '', batch_id)
+        else:
+            self.log = KukaLog(self.batch_dir, self.img_name, batch_id)
+
 
     def end_log(self):
         self.log.EndWrite()
@@ -183,16 +188,45 @@ class Renderer:
         brush = self.brush_large_horizontal
         R0, G0, B0, ALPHA = self.stroke_params[5:]
         color_index, [_R0, _G0, _B0] = self.choose_color([R0, G0, B0])
-        brush_widths = np.array([2., 4., 5., 6., 8., 10.])
-        w_idx = int(np.argmin(np.abs(brush_widths - w*self.kuka_width)))
-        w = brush_widths[w_idx] / self.kuka_width
+        brush_idx = int(np.argmin(np.abs(self.brush_widths - w*self.kuka_width)))
+        w = self.brush_widths[brush_idx] / self.kuka_width
         theta = np.pi * theta
 
         if self.make_log:
-            if self.w_idx != w_idx:
-                self.log.addChangeBrush(w_idx)
-                self.w_idx = w_idx
-            self.log.addColorBrush(color_index)
+            if self.color_idx == -1 and self.brush_idx == -1:
+                # first command
+                self.log.addChangeBrush(brush_idx)
+                self.brush_idx = brush_idx
+                self.log.addColorBrush(color_index)
+                self.color_idx = brush_idx
+                self.same_color_counts = 1
+            else:
+                color_changed = (self.color_idx != color_index)
+                brush_changed = (self.brush_idx != brush_idx)
+                if color_changed and brush_changed:
+                    self.log.addClearBrush()
+                    self.log.addChangeBrush(brush_idx)
+                    self.brush_idx = brush_idx
+                    self.log.addColorBrush(color_index)
+                    self.color_idx = color_index
+                    self.same_color_counts = 1
+                elif color_changed and not brush_changed:
+                    self.log.addClearBrush()
+                    self.log.addColorBrush(color_index)
+                    self.color_idx = color_index
+                    self.same_color_counts = 1
+                elif not color_changed and brush_changed:
+                    self.log.addClearBrush()
+                    self.log.addChangeBrush(brush_idx)
+                    self.brush_idx = brush_idx
+                    self.log.addColorBrush(color_index)
+                    self.same_color_counts = 1
+                elif not color_changed and not brush_changed:
+                    if self.same_color_counts < self.n_without_dipping:
+                        self.same_color_counts += 1
+                    else:
+                        self.log.addColorBrush(color_index)
+                        self.same_color_counts = 1
             self.send_kuka_coords([x0, y0], h, w, theta)
 
 
@@ -219,9 +253,11 @@ class Renderer:
         # plt.imshow(self.canvas)
         # plt.show()
 
+
     def _update_canvas(self):
         return self.foreground * self.stroke_alpha_map + \
                self.canvas * (1 - self.stroke_alpha_map)
+
 
     def choose_brush(self, h, w):
 
@@ -236,12 +272,8 @@ class Renderer:
             else:
                 brush = self.brush_small_horizontal
 
+
     def send_kuka_coords(self, mid_point, h, w, theta):
-        print('mid_point: ', mid_point)
-        print('h: ', h)
-        print('w: ', w)
-        print('theta: ', theta)
-        # exit(1424)
 
         mid_point = np.array(mid_point)
         _h = np.array([0, h/2])
@@ -274,8 +306,7 @@ class Renderer:
         mid_point = to_float(mid_point*normalization + shift_coords)
 
         right_point = to_float(right_point*normalization + shift_coords)
-        if self.make_log:
-            self.log.addSplineStroke(*left_point, *mid_point, *right_point)
+        self.log.addSplineStroke(*left_point, *mid_point, *right_point)
 
     def choose_color(self, color):
         color = np.array(color)[None,:]

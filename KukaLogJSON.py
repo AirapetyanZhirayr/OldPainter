@@ -35,6 +35,10 @@ class KukaLog():
         com = {'action': 'change_brush', 'data': {'brush_num': num}}
         self.commands.append(com)
 
+    def addClearBrush(self):
+        com = {"action": "clear_brush"}
+        self.commands.append(com)
+
     def addColorBrush(self, num):
         com = {'action': 'color_brush', 'data': {'color_num': num}}
         self.commands.append(com)

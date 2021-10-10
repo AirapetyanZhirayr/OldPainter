@@ -94,6 +94,26 @@ class PainterBase():
         np.savez(file_name + '_strokes.npz', x_ctt=x_ctt, x_w=x_w, x_h=x_h,
                  x_color=x_color, x_alpha=x_alpha)
 
+
+    def _sort_strokes(self, v, by):
+        v = v[0, :, :]
+        width_idx = 3
+        if by=='width':
+            sort_idxs = np.argsort(-v[:, width_idx])
+        elif by=='width_color':
+            c1 = -v[:, width_idx]
+            c2 = np.zeros_like(c1)
+            for i, stroke in enumerate(v):
+                R0, G0, B0, _ = stroke[5:]
+                color_index, _ = self.rderr.choose_color([R0, G0, B0])
+                c2[i] = color_index
+            sort_idxs = np.lexsort((c2, c1))
+
+        v = v[sort_idxs]
+        v = v[None, ...]
+        return v
+
+
     def _shuffle_strokes_and_reshape(self, v):
 
         grid_idx = list(range(self.m_grid ** 2))
@@ -109,10 +129,10 @@ class PainterBase():
         v = v[0, :, :]
         out_h, out_w = self.out_h, self.out_w
 
-        file_name = os.path.join(
+        file_dir = os.path.join(
             self.output_dir, self.img_name)
-        if os.path.exists(file_name) is False:
-            os.mkdir(file_name)
+        if os.path.exists(file_dir) is False:
+            os.mkdir(file_dir)
 
         print('rendering canvas...')
         if self.make_log:
@@ -132,12 +152,12 @@ class PainterBase():
         if save_jpgs:
             print('saving input photo...')
             out_img = cv2.resize(self.img_, (out_w, out_h), cv2.INTER_AREA)
-            plt.imsave(file_name + f'/{self.img_name}_input.png', out_img)
+            plt.imsave(file_dir + f'/{self.img_name}_input.png', out_img)
 
         final_rendered_image = np.copy(this_frame)
         if save_jpgs:
             print('saving final rendered result...')
-            file_name = os.path.join(file_name, f'{self.img_name}_{self.n_colors}c_{self.m_strokes}s')
+            file_name = os.path.join(file_dir, f'{self.img_name}_{self.n_colors}c_{self.m_strokes}s')
             if self.clamped:
                 file_name += '_clamped'
             plt.imsave(file_name + '_final_{}.png'.format(self.batch_id), final_rendered_image)
@@ -305,7 +325,11 @@ class ProgressivePainter(PainterBase):
         self.img_ = cv2.cvtColor(self.img_, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
         self.n_colors = args['n_colors']
         self.colors_dir = args['colors_dir']
-        compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, self.img_name)
+        if self.kuka_interaction:
+            compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, '')
+        else:
+            compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, self.img_name)
+
         if self.use_compressed_ref:
             self.img_ = compressor.image_compressed
         self.rderr.compressor = compressor
@@ -333,8 +357,6 @@ class ProgressivePainter(PainterBase):
             self.video_path, cv2.VideoWriter_fourcc(*self.args['video']), 40,
             (self.out_w, self.out_h))
 
-    def __setattr__(self, key, value):
-        self.__dict__[key] = value
 
     def stroke_parser(self):
 
