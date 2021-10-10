@@ -369,24 +369,38 @@ def build_transformation_matrix(transform):
     return transform_matrix
 
 
-def preproc_camera_image(image):
-    preproc_img = image
-    crop_img = preproc_img[560:1220, 660:1700]
-    cv2.imshow(crop_img)
-    cv2.imwrite(image_path, crop_img)
+# def preproc_camera_image(image):
+#     preproc_img = image
+#     crop_img = preproc_img[560:1220, 660:1700]
+#     cv2.imshow(crop_img)
+#     cv2.imwrite(image_path, crop_img)
+#
+#     from PIL import Image, ImageEnhance
+#
+#     im = Image.open(image_path)
+#     factor = 1.4
+#     im_output = enhancer.enhance(factor)
+#
+#     enhancer = ImageEnhance.Brightness(im_output)
+#
+#     factor = 0.93
+#     im_output = enhancer.enhance(factor)
+#     im_output.save(image_path)
+#     return cv2.imread(image_path, cv2.IMREAD_COLOR)
 
+
+def preproc_camera_image(image, save_dir, experiment_id, img_name, batch_id):
     from PIL import Image, ImageEnhance
+    if os.path.exists(save_dir) is False: os.mkdir(save_dir)
+    experiment_dir = os.path.join(save_dir, experiment_id)
+    if os.path.exists(experiment_dir) is False: os.mkdir(experiment_dir)
+    image_path = os.path.join(experiment_dir, f'{img_name}_batch_{batch_id}.jpeg')
+    cv2.imwrite(image_path, image[:, :, [2, 1, 0]] * 255)
+    # ADD PREPROCESSING
 
-    im = Image.open(image_path)
-    factor = 1.4
-    im_output = enhancer.enhance(factor)
-
-    enhancer = ImageEnhance.Brightness(im_output)
-
-    factor = 0.93
-    im_output = enhancer.enhance(factor)
-    im_output.save(image_path)
-    return cv2.imread(image_path, cv2.IMREAD_COLOR)
+    img = cv2.imread(image_path, cv2.IMREAD_COLOR)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
+    return img
 
 
 def take_screenshot(filename, shape):
