@@ -15,7 +15,7 @@ class KukaLog():
         result_filepath = os.path.join(batch_dir, img_name)
         if os.path.exists(result_filepath) is False:
             os.mkdir(result_filepath)
-        result_filepath = os.path.join(result_filepath, f'batch_{batch_id}.txt')
+        result_filepath = os.path.join(result_filepath, f'batch_{batch_id}.json')
         self.f = open(result_filepath, 'w')
         self.commands = []
 
@@ -45,7 +45,7 @@ class KukaLog():
 
     def EndWrite(self):
         self.json = {'common_data': {"brush_tilt_threshold": 30}, 'commands': self.commands}
-        json.dump(self.json, self.f)
+        json.dump(self.json, self.f, indent=' ')
         self.f.close()
 
 

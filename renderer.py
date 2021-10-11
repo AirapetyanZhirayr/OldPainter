@@ -200,6 +200,7 @@ class Renderer:
                 self.log.addChangeBrush(brush_idx)
                 self.brush_idx = brush_idx
                 self.log.addColorBrush(color_index)
+                self.log.addTestStroke()
                 self.color_idx = brush_idx
                 self.same_color_counts = 1
             else:
@@ -210,11 +211,13 @@ class Renderer:
                     self.log.addChangeBrush(brush_idx)
                     self.brush_idx = brush_idx
                     self.log.addColorBrush(color_index)
+                    self.log.addTestStroke()
                     self.color_idx = color_index
                     self.same_color_counts = 1
                 elif color_changed and not brush_changed:
                     self.log.addClearBrush()
                     self.log.addColorBrush(color_index)
+                    self.log.addTestStroke()
                     self.color_idx = color_index
                     self.same_color_counts = 1
                 elif not color_changed and brush_changed:
@@ -222,12 +225,14 @@ class Renderer:
                     self.log.addChangeBrush(brush_idx)
                     self.brush_idx = brush_idx
                     self.log.addColorBrush(color_index)
+                    self.log.addTestStroke()
                     self.same_color_counts = 1
                 elif not color_changed and not brush_changed:
                     if self.same_color_counts < self.n_without_dipping:
                         self.same_color_counts += 1
                     else:
                         self.log.addColorBrush(color_index)
+                        self.log.addTestStroke()
                         self.same_color_counts = 1
             self.send_kuka_coords([x0, y0], h, w, theta)
 
@@ -309,6 +314,11 @@ class Renderer:
         mid_point = to_float(axis_dir*mid_point*normalization + shift_coords)
 
         right_point = to_float(axis_dir*right_point*normalization + shift_coords)
+
+        _round = lambda point: [round(el)/1. for el in point]
+        left_point = _round(left_point)
+        mid_point = _round(mid_point)
+        right_point = _round(right_point)
         self.log.addSplineStroke(*left_point, *mid_point, *right_point)
 
     def choose_color(self, color):
