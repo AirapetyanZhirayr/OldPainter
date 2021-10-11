@@ -13,7 +13,7 @@ from painter import *
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
-LOCAL = True
+LOCAL = False
 REMOTE = not LOCAL
 
 args = {
