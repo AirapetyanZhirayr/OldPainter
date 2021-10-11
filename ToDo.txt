@@ -27,4 +27,12 @@
 
 
 
+Commit venv
+Pull venv
+Push venv
+
+pull local
+
+
+
 
