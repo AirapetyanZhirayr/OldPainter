@@ -1,23 +1,20 @@
-#%%
-
-import argparse
+from sklearn import cluster
 import torch
 import torch.optim as optim
-import cv2
 import pickle
 import os
 import time
 import numpy as np
 import cv2
 
+
 import utils
 from painter import *
-# from imitator import*
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('device type: ', device.type)
 
-
-
+LOCAL = True
+REMOTE = not LOCAL
 
 args = {
 
@@ -42,13 +39,19 @@ args = {
     'img_path' : 'test_images/cat3.jpeg',
     'canvas_size' : 512,
     'keep_aspect_ratio' : True,
-    'max_m_strokes' : 14*3 if device.type=='cpu' else 600,
-    'start_divide': 1 if device.type=='cpu' else 4,
-    'max_divide' : 3 if device.type=='cpu' else 8,
-    'iterations_per_block' : 2*3 if device.type=='cpu' else 200,
+    # 'max_m_strokes' : 14*3 if device.type=='cpu' else 600,
+    # 'start_divide': 1 if device.type=='cpu' else 4,
+    # 'max_divide' : 3 if device.type=='cpu' else 8,
+    # 'iterations_per_block' : 2*3 if device.type=='cpu' else 200,
+    # 'with_ot_loss': False if device.type == 'cpu' else True,
+    'max_m_strokes': 14 * 3 if LOCAL else 600,
+    'start_divide': 1 if LOCAL else 4,
+    'max_divide': 3 if LOCAL else 8,
+    'iterations_per_block': 2 * 3 if LOCAL else 200,
+    'with_ot_loss': False if LOCAL else True,
+
     'batch_dir' : 'batches',
     'beta_L1' : 1.0,
-    'with_ot_loss' : False if device.type == 'cpu' else True,
     'beta_ot' : 0.1,
     'lr' : 0.005,
     'output_dir': 'output',
@@ -94,7 +97,6 @@ if args['KukaLog'] and not args['clamp']:
     print('You are logging not clamped unrealistic drawing')
     raise AssertionError
 
-#!g1.1
 def optimize_x(pt):
 
     # real_img = None
@@ -222,7 +224,6 @@ def optimize_x(pt):
     return None
 
 if __name__ == '__main__':
-
     pt = ProgressivePainter(args=args)
     final_rendered_image = optimize_x(pt)
 

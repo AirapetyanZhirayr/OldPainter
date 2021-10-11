@@ -13,37 +13,32 @@ class ImgCompress:
     def __init__(self, image, n_clusters, save_dir, img_name):
 
         self.image = image  # range [0, 1] RGB img
-        # self.image = color.rgb2lab(image)
         self.n_clusters = n_clusters
         self.save_dir = save_dir
-        if os.path.exists(self.save_dir) is False:
-            os.mkdir(self.save_dir)
+        if os.path.exists(self.save_dir) is False: os.mkdir(self.save_dir)
+
         self.img_name = img_name
         self.save_dir = os.path.join(self.save_dir, self.img_name)
-        if os.path.exists(self.save_dir) is False:
-            os.mkdir(self.save_dir)
-        # preparing data, using pixel coordinates as additional features
-#         ind = np.indices(self.image.shape[:2]).transpose(1,2,0)
-#         self.features = np.dstack((ind, self.image)).reshape(-1, 5)
-        
-        # Delete this
+        if os.path.exists(self.save_dir) is False: os.mkdir(self.save_dir)
+
         self.features = self.image.reshape(-1,3)
-        
         self.x, self.y, self.z = self.image.shape
         
         # using KMeans to cluster our data to n_clusters
-        clustered_im = cluster.KMeans(n_clusters,
+        clusterer = cluster.KMeans(n_clusters,
                                       random_state=42
                                       )
-        clustered_im.fit(self.features)
-        self.clusterer = clustered_im
+        clusterer.fit(self.features)
+        self.clusterer = clusterer
         
-        self.cluster_centers = clustered_im.cluster_centers_
+        self.cluster_centers = self.clusterer.cluster_centers_
         # self.cluster_centers = color.lab2rgb(self.cluster_centers[None, ...]).squeeze()
-        self.cl_centers_rgb = (self.cluster_centers * 255.).astype(np.uint8)
+        self.cl_centers_rgb = (self.cluster_centers * 255.).astype(np.uint8)  #  [n_cl, 3]
+        self.cluster_labels = self.clusterer.labels_
+        self.sort_colors()
         self.save_colors()
         self.save_palette()
-        self.cluster_labels = clustered_im.labels_
+
 
         
         self.image_compressed = self.image_compression(save=True)
@@ -91,7 +86,8 @@ class ImgCompress:
         # plotting centroids color palette
         color_palette = self.cluster_centers
         sns.palplot(color_palette, size=0.4)
-        
+        # plt.show()
+
         
     def get_closest_color(self, colors):
         """
@@ -101,9 +97,21 @@ class ImgCompress:
         """
         
         labels = self.clusterer.predict(colors)
+        labels = np.array([self.sort_dict[l] for l in labels])
         discrete_colors = self.cluster_centers[labels]
         assert discrete_colors.shape == colors.shape
         return labels, discrete_colors
+
+    def sort_colors(self):
+        r, g, b = self.cl_centers_rgb.T
+        sort_idx = np.lexsort((b, g, r))
+        sort_dict = dict(zip(list(sort_idx), list(range(len(sort_idx)))))
+        self.sort_dict = sort_dict
+        self.cl_centers_rgb = self.cl_centers_rgb[sort_idx]
+        for i in range(len(self.cluster_labels)):
+            self.cluster_labels[i] = sort_dict[self.cluster_labels[i]]
+        self.cluster_centers = self.cluster_centers[sort_idx]
+
 
     def save_colors(self):
         file_dir = os.path.join(self.save_dir, self.img_name + f'_{self.n_clusters}colorsRGB')
@@ -118,10 +126,17 @@ class ImgCompress:
         plt.savefig(file_dir)
 
 
+
+
 if __name__ == "__main__":
+    import torch
+    import numpy as np
     from work import args
     # path = '/Users/jiji/Desktop/Учеба/ВШЭ/MLDM (тетрадки+слайды)/Dataset_T1/parrot1.jpg'
     img_ = cv2.imread(args['img_path'], cv2.IMREAD_COLOR)
     img_ = cv2.cvtColor(img_, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
-    img_compressor = ImgCompress(img_, 8, args['colors_dir'], 'joker')
-
+    z = img_.reshape(-1, 3)
+    clusterer = cluster.KMeans(6,
+                               # random_state=42
+                               )
+    clusterer.fit(z)
