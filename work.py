@@ -89,6 +89,13 @@ args = {
     'video': 'MP4V',
 }
 
+experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca
+'
+INTERACTION_DIR = f'/media/files/experiments/hse_experiments/{experiment_uuid}'
+
+if args['KukaInteraction'] and not args['InteractionTesting']:
+    args['batch_dir'] = INTERACTION_DIR
+
 assert args['max_w'] == max(args['brush_widths']), 'max_widths differ'
 assert args['min_w'] == min(args['brush_widths']), 'min_widths differ'
 
@@ -182,11 +189,12 @@ def optimize_x(pt):
                 # РИСУЕМ НА РОБОТЕ ТУТ И ЖДЕМ ПОКА ОТРИСУЕТ, потом выполняем код дальше
                 # В файле KukaLogJSON в конструкторе есть путь до JSON куда писать команды - там надо указать путь куда писать JSON для батча
                 # Тут надо указать ожидание откуда ждать файл что батч готов чтобы код запустился дальше
-                experiment_uuid = 'f6d6f542-9996-42a8-bde4-055d5c30437e'
+                # experiment_uuid = 'f6d6f542-9996-42a8-bde4-055d5c30437e'
                 batch_id = pt.batch_id
+                result_filepath = os.path.join(INTERACTION_DIR, f'batch_{batch_id}_out.pkl')
 
-                robot_output_json_path = '/media/files/Legacy_API/kuka_api_v1/experiments/experiment_{}'.format(experiment_uuid)
-                result_filepath = os.path.join(robot_output_json_path, 'batch_{}_out.pkl'.format(batch_id))
+                # robot_output_json_path = '/media/files/Legacy_API/kuka_api_v1/experiments/experiment_{}'.format(experiment_uuid)
+                # result_filepath = os.path.join(robot_output_json_path, 'batch_{}_out.pkl'.format(batch_id))
 
                 if args['InteractionTesting']:
                     if os.path.exists('./exp_image') is False: os.mkdir('./exp_image')
@@ -204,7 +212,8 @@ def optimize_x(pt):
                     result_data = None
                     with open(result_filepath, 'rb') as f:
                         result_data = pickle.load(f)
-                    result_data = utils.preproc_camera_image(result_data)
+                    result_data = utils.preproc_camera_image(result_data, args['cam_dir'], 
+                                                             experiment_uuid, pt.img_name, batch_id)
 
 
                 result_image = result_data

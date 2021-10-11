@@ -104,7 +104,6 @@ class PainterBase():
             c1 = v[:, [width_idx]]
             brush_idx = (np.argmin(np.abs(self.rderr.brush_widths - c1 * self.rderr.kuka_width), axis=1))
             c1 = - self.rderr.brush_widths[brush_idx] / self.rderr.kuka_width
-            # brush_idx =
 
             c2 = np.zeros_like(c1)
             for i, stroke in enumerate(v):

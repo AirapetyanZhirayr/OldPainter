@@ -4,29 +4,12 @@
  },
  "commands": [
   {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": -3.0,
-     "y": 101.0
-    },
-    "p1": {
-     "x": 17.0,
-     "y": 99.0
-    },
-    "p2": {
-     "x": 37.0,
-     "y": 97.0
-    }
-   }
-  },
-  {
    "action": "clear_brush"
   },
   {
    "action": "color_brush",
    "data": {
-    "color_num": 3
+    "color_num": 0
    }
   },
   {
@@ -36,26 +19,40 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 5.0,
-     "y": 187.0
+     "x": 208.0,
+     "y": 105.0
     },
     "p1": {
-     "x": 11.0,
-     "y": 215.0
+     "x": 226.0,
+     "y": 99.0
     },
     "p2": {
-     "x": 18.0,
-     "y": 242.0
+     "x": 244.0,
+     "y": 94.0
     }
    }
   },
   {
-   "action": "clear_brush"
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 266.0,
+     "y": 98.0
+    },
+    "p1": {
+     "x": 285.0,
+     "y": 98.0
+    },
+    "p2": {
+     "x": 304.0,
+     "y": 98.0
+    }
+   }
   },
   {
    "action": "color_brush",
    "data": {
-    "color_num": 1
+    "color_num": 0
    }
   },
   {
@@ -66,15 +63,15 @@
    "data": {
     "p0": {
      "x": 223.0,
-     "y": 259.0
+     "y": 64.0
     },
     "p1": {
-     "x": 229.0,
-     "y": 284.0
+     "x": 230.0,
+     "y": 39.0
     },
     "p2": {
-     "x": 235.0,
-     "y": 309.0
+     "x": 237.0,
+     "y": 15.0
     }
    }
   },
@@ -82,23 +79,20 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 157.0,
-     "y": 125.0
+     "x": 165.0,
+     "y": 124.0
     },
     "p1": {
-     "x": 166.0,
+     "x": 171.0,
      "y": 100.0
     },
     "p2": {
-     "x": 174.0,
+     "x": 177.0,
      "y": 76.0
     }
    }
   },
   {
-   "action": "clear_brush"
-  },
-  {
    "action": "color_brush",
    "data": {
     "color_num": 0
@@ -111,272 +105,35 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 214.0,
-     "y": 43.0
+     "x": 88.0,
+     "y": 165.0
     },
     "p1": {
-     "x": 220.0,
-     "y": 19.0
-    },
-    "p2": {
-     "x": 226.0,
-     "y": -6.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 280.0,
-     "y": 96.0
-    },
-    "p1": {
-     "x": 288.0,
-     "y": 118.0
-    },
-    "p2": {
-     "x": 295.0,
-     "y": 141.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": -3.0,
-     "y": 55.0
-    },
-    "p1": {
-     "x": 17.0,
-     "y": 53.0
-    },
-    "p2": {
-     "x": 38.0,
-     "y": 50.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 238.0,
-     "y": 96.0
-    },
-    "p1": {
-     "x": 257.0,
-     "y": 99.0
-    },
-    "p2": {
-     "x": 277.0,
-     "y": 101.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 67.0,
-     "y": 108.0
-    },
-    "p1": {
-     "x": 73.0,
-     "y": 134.0
-    },
-    "p2": {
-     "x": 80.0,
-     "y": 160.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 281.0,
-     "y": 243.0
-    },
-    "p1": {
-     "x": 294.0,
-     "y": 259.0
-    },
-    "p2": {
-     "x": 307.0,
-     "y": 275.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 145.0,
-     "y": 227.0
-    },
-    "p1": {
-     "x": 152.0,
-     "y": 203.0
-    },
-    "p2": {
-     "x": 160.0,
-     "y": 179.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 106.0,
-     "y": 242.0
-    },
-    "p1": {
-     "x": 112.0,
-     "y": 217.0
-    },
-    "p2": {
-     "x": 118.0,
-     "y": 192.0
-    }
-   }
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 157.0,
-     "y": 36.0
-    },
-    "p1": {
-     "x": 165.0,
-     "y": 14.0
-    },
-    "p2": {
-     "x": 172.0,
-     "y": -8.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 137.0,
-     "y": 260.0
-    },
-    "p1": {
-     "x": 154.0,
-     "y": 264.0
-    },
-    "p2": {
-     "x": 172.0,
-     "y": 269.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 57.0,
-     "y": 97.0
-    },
-    "p1": {
-     "x": 77.0,
-     "y": 99.0
-    },
-    "p2": {
      "x": 97.0,
-     "y": 102.0
+     "y": 189.0
+    },
+    "p2": {
+     "x": 106.0,
+     "y": 213.0
     }
    }
   },
   {
-   "action": "clear_brush"
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 136.0,
+     "y": 211.0
+    },
+    "p1": {
+     "x": 155.0,
+     "y": 205.0
+    },
+    "p2": {
+     "x": 173.0,
+     "y": 198.0
+    }
+   }
   },
   {
    "action": "color_brush",
@@ -391,148 +148,15 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 288.0,
-     "y": 85.0
+     "x": 250.0,
+     "y": 46.0
     },
     "p1": {
-     "x": 294.0,
-     "y": 59.0
+     "x": 269.0,
+     "y": 47.0
     },
     "p2": {
-     "x": 300.0,
-     "y": 33.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 122.0,
-     "y": 292.0
-    },
-    "p1": {
-     "x": 129.0,
-     "y": 266.0
-    },
-    "p2": {
-     "x": 135.0,
-     "y": 240.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 275.0,
-     "y": 307.0
-    },
-    "p1": {
-     "x": 289.0,
-     "y": 291.0
-    },
-    "p2": {
-     "x": 302.0,
-     "y": 276.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 184.0,
-     "y": 54.0
-    },
-    "p1": {
-     "x": 204.0,
-     "y": 54.0
-    },
-    "p2": {
-     "x": 223.0,
-     "y": 54.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 212.0,
-     "y": 146.0
-    },
-    "p1": {
-     "x": 229.0,
-     "y": 136.0
-    },
-    "p2": {
-     "x": 246.0,
-     "y": 126.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 133.0,
-     "y": -3.0
-    },
-    "p1": {
-     "x": 139.0,
-     "y": 22.0
-    },
-    "p2": {
-     "x": 146.0,
+     "x": 287.0,
      "y": 47.0
     }
    }
@@ -541,492 +165,276 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 77.0,
-     "y": 285.0
+     "x": 180.0,
+     "y": 259.0
     },
     "p1": {
-     "x": 83.0,
-     "y": 260.0
+     "x": 198.0,
+     "y": 261.0
     },
     "p2": {
-     "x": 89.0,
-     "y": 235.0
+     "x": 216.0,
+     "y": 262.0
     }
    }
   },
   {
    "action": "color_brush",
    "data": {
-    "color_num": 1
+    "color_num": 0
    }
   },
   {
    "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 198.0,
+     "y": 164.0
+    },
+    "p1": {
+     "x": 213.0,
+     "y": 178.0
+    },
+    "p2": {
+     "x": 229.0,
+     "y": 192.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 196.0,
+     "y": 124.0
+    },
+    "p1": {
+     "x": 211.0,
+     "y": 141.0
+    },
+    "p2": {
+     "x": 226.0,
+     "y": 157.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 289.0,
+     "y": 173.0
+    },
+    "p1": {
+     "x": 294.0,
+     "y": 152.0
+    },
+    "p2": {
+     "x": 299.0,
+     "y": 131.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 203.0,
+     "y": 6.0
+    },
+    "p1": {
+     "x": 219.0,
+     "y": 16.0
+    },
+    "p2": {
+     "x": 234.0,
+     "y": 25.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 159.0,
+     "y": 34.0
+    },
+    "p1": {
+     "x": 169.0,
+     "y": 14.0
+    },
+    "p2": {
+     "x": 179.0,
+     "y": -6.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 89.0,
+     "y": 230.0
+    },
+    "p1": {
+     "x": 107.0,
+     "y": 232.0
+    },
+    "p2": {
+     "x": 125.0,
+     "y": 234.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 146.0,
+     "y": 157.0
+    },
+    "p1": {
+     "x": 151.0,
+     "y": 177.0
+    },
+    "p2": {
+     "x": 156.0,
+     "y": 197.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 286.0,
+     "y": 28.0
+    },
+    "p1": {
+     "x": 292.0,
+     "y": 51.0
+    },
+    "p2": {
+     "x": 298.0,
+     "y": 75.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 209.0,
+     "y": 276.0
+    },
+    "p1": {
+     "x": 224.0,
+     "y": 264.0
+    },
+    "p2": {
+     "x": 239.0,
+     "y": 252.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 201.0,
+     "y": 204.0
+    },
+    "p1": {
+     "x": 219.0,
+     "y": 207.0
+    },
+    "p2": {
+     "x": 238.0,
+     "y": 209.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 175.0,
+     "y": 94.0
+    },
+    "p1": {
+     "x": 195.0,
+     "y": 98.0
+    },
+    "p2": {
+     "x": 216.0,
+     "y": 103.0
+    }
+   }
   },
   {
    "action": "spline_stroke",
    "data": {
     "p0": {
      "x": 247.0,
-     "y": 189.0
-    },
-    "p1": {
-     "x": 267.0,
-     "y": 193.0
-    },
-    "p2": {
-     "x": 286.0,
-     "y": 197.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 218.0,
-     "y": 244.0
-    },
-    "p1": {
-     "x": 224.0,
-     "y": 219.0
-    },
-    "p2": {
-     "x": 230.0,
-     "y": 193.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 3
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 133.0,
-     "y": 116.0
-    },
-    "p1": {
-     "x": 140.0,
-     "y": 95.0
-    },
-    "p2": {
-     "x": 147.0,
      "y": 75.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 216.0,
-     "y": 81.0
     },
     "p1": {
-     "x": 228.0,
-     "y": 63.0
-    },
-    "p2": {
-     "x": 239.0,
-     "y": 45.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 129.0,
-     "y": 287.0
-    },
-    "p1": {
-     "x": 146.0,
-     "y": 292.0
-    },
-    "p2": {
-     "x": 164.0,
-     "y": 297.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 189.0,
-     "y": 136.0
-    },
-    "p1": {
-     "x": 195.0,
-     "y": 112.0
-    },
-    "p2": {
-     "x": 202.0,
-     "y": 88.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 249.0,
-     "y": -1.0
-    },
-    "p1": {
-     "x": 259.0,
-     "y": 21.0
-    },
-    "p2": {
-     "x": 269.0,
-     "y": 43.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 286.0,
-     "y": 182.0
-    },
-    "p1": {
-     "x": 293.0,
-     "y": 210.0
-    },
-    "p2": {
-     "x": 300.0,
-     "y": 237.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 28.0,
-     "y": 96.0
-    },
-    "p1": {
-     "x": 46.0,
-     "y": 96.0
-    },
-    "p2": {
-     "x": 65.0,
-     "y": 97.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 256.0,
-     "y": 245.0
-    },
-    "p1": {
-     "x": 262.0,
-     "y": 222.0
-    },
-    "p2": {
-     "x": 268.0,
-     "y": 199.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 39.0,
-     "y": 170.0
-    },
-    "p1": {
-     "x": 47.0,
-     "y": 192.0
-    },
-    "p2": {
-     "x": 55.0,
-     "y": 215.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 182.0,
-     "y": 242.0
-    },
-    "p1": {
-     "x": 189.0,
-     "y": 217.0
-    },
-    "p2": {
-     "x": 197.0,
-     "y": 193.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 141.0,
-     "y": 66.0
-    },
-    "p1": {
-     "x": 161.0,
-     "y": 70.0
-    },
-    "p2": {
-     "x": 181.0,
-     "y": 73.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 66.0,
-     "y": 74.0
-    },
-    "p1": {
-     "x": 89.0,
-     "y": 70.0
-    },
-    "p2": {
-     "x": 111.0,
-     "y": 66.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 242.0,
-     "y": 110.0
-    },
-    "p1": {
-     "x": 249.0,
-     "y": 135.0
-    },
-    "p2": {
      "x": 255.0,
-     "y": 160.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 74.0,
-     "y": 203.0
-    },
-    "p1": {
-     "x": 90.0,
-     "y": 187.0
+     "y": 101.0
     },
     "p2": {
-     "x": 105.0,
-     "y": 171.0
+     "x": 264.0,
+     "y": 127.0
     }
    }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 105.0,
-     "y": 261.0
-    },
-    "p1": {
-     "x": 111.0,
-     "y": 284.0
-    },
-    "p2": {
-     "x": 116.0,
-     "y": 307.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 22.0,
-     "y": 235.0
-    },
-    "p1": {
-     "x": 28.0,
-     "y": 259.0
-    },
-    "p2": {
-     "x": 34.0,
-     "y": 283.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
   },
   {
    "action": "color_brush",
@@ -1042,15 +450,75 @@
    "data": {
     "p0": {
      "x": 176.0,
-     "y": 147.0
+     "y": 23.0
     },
     "p1": {
-     "x": 194.0,
-     "y": 150.0
+     "x": 193.0,
+     "y": 12.0
     },
     "p2": {
-     "x": 213.0,
-     "y": 154.0
+     "x": 211.0,
+     "y": 1.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 243.0,
+     "y": 198.0
+    },
+    "p1": {
+     "x": 252.0,
+     "y": 223.0
+    },
+    "p2": {
+     "x": 261.0,
+     "y": 248.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 248.0,
+     "y": 35.0
+    },
+    "p1": {
+     "x": 253.0,
+     "y": 12.0
+    },
+    "p2": {
+     "x": 259.0,
+     "y": -10.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 189.0,
+     "y": 220.0
+    },
+    "p1": {
+     "x": 195.0,
+     "y": 194.0
+    },
+    "p2": {
+     "x": 202.0,
+     "y": 169.0
     }
    }
   },
@@ -1070,26 +538,40 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 190.0,
-     "y": 284.0
+     "x": 56.0,
+     "y": 102.0
     },
     "p1": {
-     "x": 208.0,
-     "y": 289.0
+     "x": 74.0,
+     "y": 96.0
     },
     "p2": {
-     "x": 226.0,
-     "y": 294.0
+     "x": 92.0,
+     "y": 91.0
     }
    }
   },
   {
-   "action": "clear_brush"
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 16.0,
+     "y": 282.0
+    },
+    "p1": {
+     "x": 33.0,
+     "y": 295.0
+    },
+    "p2": {
+     "x": 51.0,
+     "y": 308.0
+    }
+   }
   },
   {
    "action": "color_brush",
    "data": {
-    "color_num": 0
+    "color_num": 1
    }
   },
   {
@@ -1099,16 +581,334 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 193.0,
-     "y": 264.0
+     "x": 5.0,
+     "y": 41.0
     },
     "p1": {
-     "x": 212.0,
-     "y": 258.0
+     "x": 12.0,
+     "y": 17.0
     },
     "p2": {
-     "x": 231.0,
-     "y": 251.0
+     "x": 19.0,
+     "y": -7.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 61.0,
+     "y": 298.0
+    },
+    "p1": {
+     "x": 79.0,
+     "y": 293.0
+    },
+    "p2": {
+     "x": 97.0,
+     "y": 287.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 237.0,
+     "y": 191.0
+    },
+    "p1": {
+     "x": 257.0,
+     "y": 192.0
+    },
+    "p2": {
+     "x": 277.0,
+     "y": 193.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 135.0,
+     "y": -4.0
+    },
+    "p1": {
+     "x": 143.0,
+     "y": 20.0
+    },
+    "p2": {
+     "x": 151.0,
+     "y": 43.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 83.0,
+     "y": 96.0
+    },
+    "p1": {
+     "x": 102.0,
+     "y": 102.0
+    },
+    "p2": {
+     "x": 121.0,
+     "y": 109.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 88.0,
+     "y": 242.0
+    },
+    "p1": {
+     "x": 106.0,
+     "y": 249.0
+    },
+    "p2": {
+     "x": 125.0,
+     "y": 257.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 281.0,
+     "y": 211.0
+    },
+    "p1": {
+     "x": 287.0,
+     "y": 186.0
+    },
+    "p2": {
+     "x": 293.0,
+     "y": 161.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 261.0,
+     "y": 242.0
+    },
+    "p1": {
+     "x": 280.0,
+     "y": 248.0
+    },
+    "p2": {
+     "x": 299.0,
+     "y": 254.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 118.0,
+     "y": 149.0
+    },
+    "p1": {
+     "x": 136.0,
+     "y": 149.0
+    },
+    "p2": {
+     "x": 154.0,
+     "y": 149.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 64.0,
+     "y": 108.0
+    },
+    "p1": {
+     "x": 71.0,
+     "y": 133.0
+    },
+    "p2": {
+     "x": 78.0,
+     "y": 158.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 147.0,
+     "y": 238.0
+    },
+    "p1": {
+     "x": 153.0,
+     "y": 264.0
+    },
+    "p2": {
+     "x": 160.0,
+     "y": 291.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 155.0,
+     "y": 164.0
+    },
+    "p1": {
+     "x": 163.0,
+     "y": 139.0
+    },
+    "p2": {
+     "x": 171.0,
+     "y": 115.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 141.0,
+     "y": 64.0
+    },
+    "p1": {
+     "x": 161.0,
+     "y": 68.0
+    },
+    "p2": {
+     "x": 181.0,
+     "y": 71.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 63.0,
+     "y": 217.0
+    },
+    "p1": {
+     "x": 78.0,
+     "y": 203.0
+    },
+    "p2": {
+     "x": 93.0,
+     "y": 189.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 115.0,
+     "y": 169.0
+    },
+    "p1": {
+     "x": 132.0,
+     "y": 168.0
+    },
+    "p2": {
+     "x": 149.0,
+     "y": 167.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 201.0,
+     "y": 288.0
+    },
+    "p1": {
+     "x": 220.0,
+     "y": 292.0
+    },
+    "p2": {
+     "x": 240.0,
+     "y": 296.0
     }
    }
   },
@@ -1129,44 +929,15 @@
    "data": {
     "p0": {
      "x": 14.0,
-     "y": 108.0
+     "y": 317.0
     },
     "p1": {
-     "x": 19.0,
-     "y": 131.0
+     "x": 24.0,
+     "y": 329.0
     },
     "p2": {
-     "x": 25.0,
-     "y": 154.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 256.0,
-     "y": 246.0
-    },
-    "p1": {
-     "x": 270.0,
-     "y": 265.0
-    },
-    "p2": {
-     "x": 284.0,
-     "y": 284.0
+     "x": 33.0,
+     "y": 342.0
     }
    }
   },
@@ -1174,165 +945,18 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 58.0,
-     "y": 290.0
+     "x": 118.0,
+     "y": 248.0
     },
     "p1": {
-     "x": 77.0,
-     "y": 295.0
+     "x": 132.0,
+     "y": 262.0
     },
     "p2": {
-     "x": 95.0,
-     "y": 300.0
+     "x": 147.0,
+     "y": 275.0
     }
    }
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 117.0,
-     "y": 96.0
-    },
-    "p1": {
-     "x": 126.0,
-     "y": 120.0
-    },
-    "p2": {
-     "x": 135.0,
-     "y": 145.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 145.0,
-     "y": 175.0
-    },
-    "p1": {
-     "x": 165.0,
-     "y": 176.0
-    },
-    "p2": {
-     "x": 184.0,
-     "y": 177.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 158.0,
-     "y": 244.0
-    },
-    "p1": {
-     "x": 174.0,
-     "y": 232.0
-    },
-    "p2": {
-     "x": 190.0,
-     "y": 220.0
-    }
-   }
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 244.0,
-     "y": 92.0
-    },
-    "p1": {
-     "x": 251.0,
-     "y": 72.0
-    },
-    "p2": {
-     "x": 257.0,
-     "y": 52.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 66.0,
-     "y": 195.0
-    },
-    "p1": {
-     "x": 73.0,
-     "y": 220.0
-    },
-    "p2": {
-     "x": 80.0,
-     "y": 245.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 6.0,
-     "y": 297.0
-    },
-    "p1": {
-     "x": 21.0,
-     "y": 297.0
-    },
-    "p2": {
-     "x": 37.0,
-     "y": 297.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
   },
   {
    "action": "color_brush",
@@ -1347,26 +971,40 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 83.0,
-     "y": 143.0
+     "x": 27.0,
+     "y": 201.0
     },
     "p1": {
-     "x": 100.0,
-     "y": 146.0
+     "x": 46.0,
+     "y": 196.0
     },
     "p2": {
-     "x": 116.0,
-     "y": 149.0
+     "x": 65.0,
+     "y": 192.0
     }
    }
   },
   {
-   "action": "clear_brush"
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 90.0,
+     "y": 57.0
+    },
+    "p1": {
+     "x": 108.0,
+     "y": 52.0
+    },
+    "p2": {
+     "x": 125.0,
+     "y": 47.0
+    }
+   }
   },
   {
    "action": "color_brush",
    "data": {
-    "color_num": 1
+    "color_num": 2
    }
   },
   {
@@ -1376,50 +1014,35 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 2.0,
-     "y": 2.0
+     "x": 249.0,
+     "y": 257.0
     },
     "p1": {
-     "x": 21.0,
-     "y": 8.0
+     "x": 256.0,
+     "y": 283.0
+    },
+    "p2": {
+     "x": 263.0,
+     "y": 308.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": -1.0,
+     "y": 146.0
+    },
+    "p1": {
+     "x": 20.0,
+     "y": 149.0
     },
     "p2": {
      "x": 40.0,
-     "y": 15.0
+     "y": 152.0
     }
    }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 0
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 199.0,
-     "y": 208.0
-    },
-    "p1": {
-     "x": 215.0,
-     "y": 194.0
-    },
-    "p2": {
-     "x": 231.0,
-     "y": 179.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
   },
   {
    "action": "color_brush",
@@ -1438,22 +1061,36 @@
      "y": 349.0
     },
     "p1": {
-     "x": 6.0,
-     "y": 345.0
+     "x": 7.0,
+     "y": 341.0
     },
     "p2": {
-     "x": 16.0,
-     "y": 341.0
+     "x": 17.0,
+     "y": 333.0
     }
    }
   },
   {
-   "action": "clear_brush"
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 118.0,
+     "y": 290.0
+    },
+    "p1": {
+     "x": 137.0,
+     "y": 291.0
+    },
+    "p2": {
+     "x": 157.0,
+     "y": 293.0
+    }
+   }
   },
   {
    "action": "color_brush",
    "data": {
-    "color_num": 3
+    "color_num": 2
    }
   },
   {
@@ -1463,21 +1100,121 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 304.0,
-     "y": 335.0
+     "x": 0.0,
+     "y": 309.0
     },
     "p1": {
-     "x": 294.0,
-     "y": 331.0
+     "x": 8.0,
+     "y": 301.0
     },
     "p2": {
-     "x": 284.0,
-     "y": 327.0
+     "x": 17.0,
+     "y": 293.0
     }
    }
   },
   {
-   "action": "clear_brush"
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 20.0,
+     "y": 11.0
+    },
+    "p1": {
+     "x": 34.0,
+     "y": 31.0
+    },
+    "p2": {
+     "x": 47.0,
+     "y": 50.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 2.0,
+     "y": 207.0
+    },
+    "p1": {
+     "x": 8.0,
+     "y": 182.0
+    },
+    "p2": {
+     "x": 14.0,
+     "y": 158.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 79.0,
+     "y": 42.0
+    },
+    "p1": {
+     "x": 84.0,
+     "y": 64.0
+    },
+    "p2": {
+     "x": 90.0,
+     "y": 86.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": -3.0,
+     "y": 131.0
+    },
+    "p1": {
+     "x": 16.0,
+     "y": 121.0
+    },
+    "p2": {
+     "x": 34.0,
+     "y": 111.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 31.0,
+     "y": 334.0
+    },
+    "p1": {
+     "x": 41.0,
+     "y": 330.0
+    },
+    "p2": {
+     "x": 51.0,
+     "y": 325.0
+    }
+   }
   },
   {
    "action": "color_brush",
@@ -1493,44 +1230,15 @@
    "data": {
     "p0": {
      "x": 25.0,
-     "y": 233.0
+     "y": 280.0
     },
     "p1": {
-     "x": 32.0,
-     "y": 211.0
+     "x": 30.0,
+     "y": 257.0
     },
     "p2": {
-     "x": 39.0,
-     "y": 190.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 1
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 65.0,
-     "y": 15.0
-    },
-    "p1": {
-     "x": 83.0,
-     "y": 9.0
-    },
-    "p2": {
-     "x": 101.0,
-     "y": 3.0
+     "x": 36.0,
+     "y": 234.0
     }
    }
   },
@@ -1538,21 +1246,18 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 32.0,
-     "y": 294.0
+     "x": 7.0,
+     "y": 78.0
     },
     "p1": {
-     "x": 47.0,
-     "y": 304.0
+     "x": 18.0,
+     "y": 54.0
     },
     "p2": {
-     "x": 62.0,
-     "y": 314.0
+     "x": 28.0,
+     "y": 31.0
     }
    }
-  },
-  {
-   "action": "clear_brush"
   },
   {
    "action": "color_brush",
@@ -1567,74 +1272,16 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 10.0,
-     "y": 72.0
-    },
-    "p1": {
-     "x": 29.0,
-     "y": 72.0
-    },
-    "p2": {
-     "x": 49.0,
-     "y": 72.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 3
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 268.0,
-     "y": 332.0
-    },
-    "p1": {
-     "x": 278.0,
-     "y": 328.0
-    },
-    "p2": {
-     "x": 287.0,
-     "y": 324.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 73.0,
-     "y": 50.0
-    },
-    "p1": {
      "x": 90.0,
-     "y": 47.0
+     "y": 293.0
+    },
+    "p1": {
+     "x": 108.0,
+     "y": 285.0
     },
     "p2": {
-     "x": 107.0,
-     "y": 44.0
+     "x": 127.0,
+     "y": 276.0
     }
    }
   },
@@ -1642,16 +1289,85 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": -3.0,
-     "y": 327.0
+     "x": 15.0,
+     "y": 188.0
+    },
+    "p1": {
+     "x": 21.0,
+     "y": 214.0
+    },
+    "p2": {
+     "x": 28.0,
+     "y": 240.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 53.0,
+     "y": 37.0
+    },
+    "p1": {
+     "x": 68.0,
+     "y": 48.0
+    },
+    "p2": {
+     "x": 83.0,
+     "y": 59.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 284.0,
+     "y": 255.0
+    },
+    "p1": {
+     "x": 294.0,
+     "y": 276.0
+    },
+    "p2": {
+     "x": 304.0,
+     "y": 296.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": -8.0,
+     "y": 84.0
     },
     "p1": {
      "x": 6.0,
-     "y": 338.0
+     "y": 101.0
     },
     "p2": {
-     "x": 15.0,
-     "y": 349.0
+     "x": 20.0,
+     "y": 117.0
     }
    }
   },
@@ -1671,52 +1387,37 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 197.0,
+     "x": 275.0,
+     "y": 324.0
+    },
+    "p1": {
+     "x": 291.0,
+     "y": 330.0
+    },
+    "p2": {
+     "x": 308.0,
+     "y": 335.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 196.0,
      "y": 333.0
     },
     "p1": {
-     "x": 187.0,
+     "x": 186.0,
      "y": 328.0
     },
     "p2": {
-     "x": 178.0,
+     "x": 176.0,
      "y": 323.0
     }
    }
   },
   {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 5
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 176.0,
-     "y": 340.0
-    },
-    "p1": {
-     "x": 186.0,
-     "y": 336.0
-    },
-    "p2": {
-     "x": 196.0,
-     "y": 331.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
    "action": "color_brush",
    "data": {
     "color_num": 3
@@ -1729,126 +1430,33 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 184.0,
+     "x": 163.0,
      "y": 332.0
     },
     "p1": {
-     "x": 174.0,
+     "x": 173.0,
      "y": 328.0
     },
     "p2": {
-     "x": 164.0,
+     "x": 183.0,
      "y": 324.0
     }
    }
   },
   {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 18.0,
-     "y": 337.0
+     "x": 283.0,
+     "y": 333.0
     },
     "p1": {
-     "x": 36.0,
-     "y": 330.0
-    },
-    "p2": {
-     "x": 53.0,
-     "y": 322.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "change_brush",
-   "data": {
-    "brush_num": 0
-   }
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 3
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 202.0,
-     "y": 326.0
-    },
-    "p1": {
-     "x": 220.0,
-     "y": 328.0
-    },
-    "p2": {
-     "x": 238.0,
-     "y": 330.0
-    }
-   }
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 134.0,
-     "y": 328.0
-    },
-    "p1": {
-     "x": 151.0,
-     "y": 328.0
-    },
-    "p2": {
-     "x": 169.0,
+     "x": 273.0,
      "y": 329.0
-    }
-   }
-  },
-  {
-   "action": "clear_brush"
-  },
-  {
-   "action": "color_brush",
-   "data": {
-    "color_num": 2
-   }
-  },
-  {
-   "action": "test_stroke"
-  },
-  {
-   "action": "spline_stroke",
-   "data": {
-    "p0": {
-     "x": 56.0,
-     "y": 330.0
-    },
-    "p1": {
-     "x": 69.0,
-     "y": 328.0
     },
     "p2": {
-     "x": 82.0,
-     "y": 326.0
+     "x": 263.0,
+     "y": 325.0
     }
    }
   },
@@ -1868,16 +1476,51 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 121.0,
-     "y": 332.0
+     "x": 184.0,
+     "y": 336.0
     },
     "p1": {
-     "x": 126.0,
-     "y": 329.0
+     "x": 174.0,
+     "y": 332.0
     },
     "p2": {
-     "x": 131.0,
-     "y": 325.0
+     "x": 164.0,
+     "y": 327.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "change_brush",
+   "data": {
+    "brush_num": 0
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 56.0,
+     "y": 329.0
+    },
+    "p1": {
+     "x": 68.0,
+     "y": 328.0
+    },
+    "p2": {
+     "x": 79.0,
+     "y": 327.0
     }
    }
   },
@@ -1898,15 +1541,15 @@
    "data": {
     "p0": {
      "x": 239.0,
-     "y": 332.0
+     "y": 328.0
     },
     "p1": {
-     "x": 257.0,
+     "x": 246.0,
      "y": 330.0
     },
     "p2": {
-     "x": 276.0,
-     "y": 328.0
+     "x": 253.0,
+     "y": 332.0
     }
    }
   },
@@ -1914,16 +1557,88 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 81.0,
-     "y": 330.0
+     "x": 202.0,
+     "y": 326.0
     },
     "p1": {
-     "x": 93.0,
+     "x": 219.0,
      "y": 328.0
     },
     "p2": {
-     "x": 105.0,
-     "y": 327.0
+     "x": 236.0,
+     "y": 330.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 3
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 94.0,
+     "y": 324.0
+    },
+    "p1": {
+     "x": 98.0,
+     "y": 328.0
+    },
+    "p2": {
+     "x": 102.0,
+     "y": 332.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 190.0,
+     "y": 333.0
+    },
+    "p1": {
+     "x": 198.0,
+     "y": 328.0
+    },
+    "p2": {
+     "x": 205.0,
+     "y": 323.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 4
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 134.0,
+     "y": 330.0
+    },
+    "p1": {
+     "x": 153.0,
+     "y": 332.0
+    },
+    "p2": {
+     "x": 171.0,
+     "y": 334.0
     }
    }
   },
@@ -1943,16 +1658,16 @@
    "action": "spline_stroke",
    "data": {
     "p0": {
-     "x": 109.0,
-     "y": 326.0
-    },
-    "p1": {
-     "x": 111.0,
+     "x": 104.0,
      "y": 332.0
     },
+    "p1": {
+     "x": 114.0,
+     "y": 331.0
+    },
     "p2": {
-     "x": 113.0,
-     "y": 339.0
+     "x": 124.0,
+     "y": 331.0
     }
    }
   }
