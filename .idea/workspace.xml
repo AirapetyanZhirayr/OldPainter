@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d4030c99-6e0b-4f3b-962b-e94d2e21ccdc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ToDo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work.ipynb.amltmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/batches/batch_5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/colors/_8colors.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/colors/_8colorsRGB.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/colors/_8colors_palette.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/renderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/renderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work.py" beforeDir="false" afterPath="$PROJECT_DIR$/work.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1633256964717</updated>
       <workItem from="1633256966028" duration="9028000" />
-      <workItem from="1633507432550" duration="56004000" />
+      <workItem from="1633507432550" duration="57634000" />
     </task>
     <servers />
   </component>

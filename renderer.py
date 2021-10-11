@@ -47,6 +47,8 @@ class Renderer:
         self.kuka_height = args['kuka_height']
         self.x_shift = args['x_shift']
         self.y_shift = args['y_shift']
+        self.x_dir = args['x_dir']
+        self.y_dir = args['y_dir']
         self.compressor = None
 
         if self.renderer in ['markerpen']:
@@ -301,11 +303,12 @@ class Renderer:
                         # /self.CANVAS_WIDTH
         to_float = lambda point: [float(el) for el in point]
         shift_coords = np.array([self.x_shift, self.y_shift])  # in mm
-        left_point = to_float(left_point*normalization + shift_coords)
+        axis_dir = np.array([self.x_dir, self.y_dir])
+        left_point = to_float(axis_dir*left_point*normalization + shift_coords)
 
-        mid_point = to_float(mid_point*normalization + shift_coords)
+        mid_point = to_float(axis_dir*mid_point*normalization + shift_coords)
 
-        right_point = to_float(right_point*normalization + shift_coords)
+        right_point = to_float(axis_dir*right_point*normalization + shift_coords)
         self.log.addSplineStroke(*left_point, *mid_point, *right_point)
 
     def choose_color(self, color):

@@ -58,8 +58,10 @@ args = {
     'clamp': True,  # whether to clamp brush widths to kuka width range
     'kuka_width' : 300.,  # in mm
     'kuka_height' : 400.,  # in mm
-    'x_shift' : 0.,  # in mm
-    'y_shift' : 0.,  # in mm
+    'x_shift' : 300.,  # in mm
+    'y_shift' : 400.,  # in mm
+    'x_dir' : -1,
+    'y_dir' : -1,
     'suppression_freq' : 25,  # clamp params every `suppression_freq'th` iteration
     'brush_widths' : [10., 21.],  # in mm
     'brush_widths_dir' : '',
