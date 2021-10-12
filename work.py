@@ -92,14 +92,11 @@ args = {
     'batch_start_id' : 1,  # след рисуемый батч 
 }
 
-<<<<<<< HEAD
 experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
 
-=======
 print('BATCH_START: ', args['batch_start_id'])
 
 experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
->>>>>>> 1d7eac45a706eaaa0aba6be2b8df0abc2cbc64a3
 INTERACTION_DIR = f'/media/files/experiments/hse_experiments/{experiment_uuid}'
 
 if args['KukaInteraction'] and not args['InteractionTesting']:
@@ -107,6 +104,7 @@ if args['KukaInteraction'] and not args['InteractionTesting']:
 
 assert args['max_w'] == max(args['brush_widths']), 'max_widths differ'
 assert args['min_w'] == min(args['brush_widths']), 'min_widths differ'
+assert args['replays'] == 1, 'other replay vals are not consistent'
 
 
 if args['KukaLog'] and not args['clamp']:
@@ -136,65 +134,63 @@ def optimize_x(pt):
     pt.batch_id = -1
     for pt.m_grid in range(args['start_divide'], pt.max_divide + 1):
         pt.batch_id += 1
-        if pt.batch_id < args['batch_start_id']:
-            continue
-        for replay in range(0, args['replays']):
+        if pt.batch_id > args['batch_start_id']:
+            for replay in range(0, args['replays']):
+                pt.img_batch = utils.img2patches(pt.img_, pt.m_grid, pt.net_G.out_size, adder=0.0).to(device)
+                pt.G_final_pred_canvas = CANVAS_tmp
 
-            pt.img_batch = utils.img2patches(pt.img_, pt.m_grid, pt.net_G.out_size, adder=0.0).to(device)
-            pt.G_final_pred_canvas = CANVAS_tmp
+                pt.initialize_params()
+                pt.x_ctt.requires_grad = True
+                pt.x_color.requires_grad = True
+                pt.x_alpha.requires_grad = True
+                pt.x_w.requires_grad = True
+                pt.x_h.requires_grad = True
+                utils.set_requires_grad(pt.net_G, False)
 
-            pt.initialize_params()
-            pt.x_ctt.requires_grad = True
-            pt.x_color.requires_grad = True
-            pt.x_alpha.requires_grad = True
-            pt.x_w.requires_grad = True
-            pt.x_h.requires_grad = True
-            utils.set_requires_grad(pt.net_G, False)
+                pt.optimizer_x = optim.RMSprop([pt.x_ctt, pt.x_color, pt.x_alpha, pt.x_w, pt.x_h], lr=pt.lr, centered=True)
+                pt.step_id = 0
+                for pt.anchor_id in range(0, pt.m_strokes_per_block):
+                    pt.stroke_sampler(pt.anchor_id) # anchor_id stroke is sampled in all blocks
 
-            pt.optimizer_x = optim.RMSprop([pt.x_ctt, pt.x_color, pt.x_alpha, pt.x_w, pt.x_h], lr=pt.lr, centered=True)
-            pt.step_id = 0
-            for pt.anchor_id in range(0, pt.m_strokes_per_block):
-                pt.stroke_sampler(pt.anchor_id) # anchor_id stroke is sampled in all blocks
+                    for i in range(iters_per_stroke):
+                        pt.G_pred_canvas = CANVAS_tmp
 
-                for i in range(iters_per_stroke):
-                    pt.G_pred_canvas = CANVAS_tmp
+                        # update x
+                        pt.optimizer_x.zero_grad()
 
-                    # update x
-                    pt.optimizer_x.zero_grad()
-
-                    pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
-                    pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1.)
-                    pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1.)
-                    pt.x_w.data = torch.clamp(pt.x_w.data, 0, 1.)
-                    pt.x_h.data = torch.clamp(pt.x_h.data, 0, 1.)
+                        pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
+                        pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1.)
+                        pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1.)
+                        pt.x_w.data = torch.clamp(pt.x_w.data, 0, 1.)
+                        pt.x_h.data = torch.clamp(pt.x_h.data, 0, 1.)
 
 
-                    pt._forward_pass() # pt.x is created  #pt.G_final_pred_canvas is updated
-                    pt._drawing_step_states()
-                    pt._backward_x()
+                        pt._forward_pass() # pt.x is created  #pt.G_final_pred_canvas is updated
+                        pt._drawing_step_states()
+                        pt._backward_x()
 
-                    pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
-                    pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1.)
-                    pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1.)
-                    pt.x_w.data = torch.clamp(pt.x_w.data, 0, 1.)
-                    pt.x_h.data = torch.clamp(pt.x_h.data, 0, 1.)
-                    pt.optimizer_x.step()
-                    pt.step_id += 1
-                    if args['clamp'] and (i%args['suppression_freq']==0 or i==iters_per_stroke-1):
-                        max_w = min(args['max_w'] * pt.m_grid / args['kuka_width'], 1)
-                        min_w = args['min_w'] * pt.m_grid / args['kuka_width']
-                        pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)  # w*w_k/m_grid < w_max
-                        max_h = min(args['max_h'] * pt.m_grid / args['kuka_height'], 1)
-                        min_h = args['min_h'] * pt.m_grid / args['kuka_height']
-                        pt.x_h.data = torch.clamp(pt.x_h.data, min_h, max_h)
+                        pt.x_ctt.data = torch.clamp(pt.x_ctt.data, 0.1, 1 - 0.1)
+                        pt.x_color.data = torch.clamp(pt.x_color.data, 0, 1.)
+                        pt.x_alpha.data = torch.clamp(pt.x_alpha.data, 0, 1.)
+                        pt.x_w.data = torch.clamp(pt.x_w.data, 0, 1.)
+                        pt.x_h.data = torch.clamp(pt.x_h.data, 0, 1.)
+                        pt.optimizer_x.step()
+                        pt.step_id += 1
+                        if args['clamp'] and (i%args['suppression_freq']==0 or i==iters_per_stroke-1):
+                            max_w = min(args['max_w'] * pt.m_grid / args['kuka_width'], 1)
+                            min_w = args['min_w'] * pt.m_grid / args['kuka_width']
+                            pt.x_w.data = torch.clamp(pt.x_w.data, min_w, max_w)  # w*w_k/m_grid < w_max
+                            max_h = min(args['max_h'] * pt.m_grid / args['kuka_height'], 1)
+                            min_h = args['min_h'] * pt.m_grid / args['kuka_height']
+                            pt.x_h.data = torch.clamp(pt.x_h.data, min_h, max_h)
 
-            # all strokes are already rendered on pt.G_final_pred_canvas
-            v = pt._normalize_strokes(pt.x)  # from patch coords to img coords
-            v = pt._shuffle_strokes_and_reshape(v)  # may be change to optimal sorting
-            v = pt._sort_strokes(v, by='width_color')
-            PARAMS = np.concatenate([PARAMS, v], axis=1)
-            CANVAS_tmp = pt._render(PARAMS, PARAMS.shape[1] - v.shape[1], save_jpgs=True, save_video=args['save_video'])
-            print(CANVAS_tmp.shape)
+                # all strokes are already rendered on pt.G_final_pred_canvas
+                v = pt._normalize_strokes(pt.x)  # from patch coords to img coords
+                v = pt._shuffle_strokes_and_reshape(v)  # may be change to optimal sorting
+                v = pt._sort_strokes(v, by='width_color')
+                PARAMS = np.concatenate([PARAMS, v], axis=1)
+                CANVAS_tmp = pt._render(PARAMS, PARAMS.shape[1] - v.shape[1], save_jpgs=True, save_video=args['save_video'])
+                print(CANVAS_tmp.shape)
 
             if args['KukaInteraction']:
                 # РИСУЕМ НА РОБОТЕ ТУТ И ЖДЕМ ПОКА ОТРИСУЕТ, потом выполняем код дальше

@@ -126,7 +126,7 @@
       <updated>1633256964717</updated>
       <workItem from="1633256966028" duration="9028000" />
       <workItem from="1633507432550" duration="59667000" />
-      <workItem from="1633981338537" duration="10695000" />
+      <workItem from="1633981338537" duration="11129000" />
     </task>
     <servers />
   </component>
@@ -146,15 +146,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/work.py</url>
-          <line>174</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="_G0" />
