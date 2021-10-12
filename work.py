@@ -89,8 +89,8 @@ args = {
     'video': 'MP4V',
 }
 
-experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca
-'
+experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
+
 INTERACTION_DIR = f'/media/files/experiments/hse_experiments/{experiment_uuid}'
 
 if args['KukaInteraction'] and not args['InteractionTesting']:
