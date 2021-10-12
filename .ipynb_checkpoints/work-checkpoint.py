@@ -92,14 +92,9 @@ args = {
     'batch_start_id' : 1,  # след рисуемый батч 
 }
 
-<<<<<<< HEAD
-experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
-
-=======
 print('BATCH_START: ', args['batch_start_id'])
 
 experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
->>>>>>> 1d7eac45a706eaaa0aba6be2b8df0abc2cbc64a3
 INTERACTION_DIR = f'/media/files/experiments/hse_experiments/{experiment_uuid}'
 
 if args['KukaInteraction'] and not args['InteractionTesting']:
