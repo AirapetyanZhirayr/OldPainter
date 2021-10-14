@@ -35,7 +35,7 @@ args = {
     'renderer': 'oilpaintbrush',
     'canvas_color': 'white',
 
-    'img_path': 'test_images/cat3.jpeg',
+    'img_path': 'test_images/peach.jpg',
     'canvas_size': 512,
     'keep_aspect_ratio': True,
     # 'max_m_strokes' : 14*3 if device.type=='cpu' else 600,
@@ -43,9 +43,9 @@ args = {
     # 'max_divide' : 3 if device.type=='cpu' else 8,
     # 'iterations_per_block' : 2*3 if device.type=='cpu' else 200,
     # 'with_ot_loss': False if device.type == 'cpu' else True,
-    'max_m_strokes': 14 * 3 if LOCAL else 600,
-    'start_divide': 1 if LOCAL else 4,
-    'max_divide': 3 if LOCAL else 8,
+    'max_m_strokes': 14 * 3 if LOCAL else 270,
+    'start_divide': 1 if LOCAL else 3,
+    'max_divide': 3 if LOCAL else 6,
     'iterations_per_block': 2 * 3 if LOCAL else 400,
     'with_ot_loss': False if LOCAL else True,
 
@@ -58,10 +58,10 @@ args = {
     # KUKA
     'KukaLog': True,
     'clamp': True,  # whether to clamp brush widths to kuka width range
-    'kuka_width': 300.,  # in mm
-    'kuka_height': 400.,  # in mm
-    'x_shift': 300.,  # in mm
-    'y_shift': 400.,  # in mm
+    'kuka_width': 200.,  # in mm
+    'kuka_height': 200.,  # in mm
+    'x_shift': 200.,  # in mm
+    'y_shift': 200.,  # in mm
     'x_dir': -1,
     'y_dir': -1,
     'suppression_freq': 25,  # clamp params every `suppression_freq'th` iteration
@@ -76,7 +76,7 @@ args = {
     'min_h': 10.,  # in mm
 
     # COLORS
-    'n_colors': 6,  # n of quantized colors
+    'n_colors': 5,  # n of quantized colors
     'colors_dir': 'colors',
     # whether to use color-compressed reference or not
     'use_compressed_ref': True,
@@ -84,16 +84,16 @@ args = {
     'save_video': True,
     'video_dir': 'animations',
     'video': 'MP4V',
-
+    
     'cam_dir': 'cam_images',
-    'batch_start_id': 4,  # след рисуемый батч
+    'batch_start_id': 1,  # след рисуемый батч
 }
 
 experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
+experiment_uuid = 'experiment_56ee63dd-4f75-4e23-ad3a-d1654282adb0'
 
 print('BATCH_START: ', args['batch_start_id'])
 
-experiment_uuid = 'experiment_3c00c72a-ed59-477c-9ea7-3d36e37d5fca'
 INTERACTION_DIR = f'/media/files/experiments/hse_experiments/{experiment_uuid}'
 
 if args['KukaInteraction'] and not args['InteractionTesting']:

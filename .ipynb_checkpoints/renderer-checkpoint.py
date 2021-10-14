@@ -47,7 +47,11 @@ class Renderer:
         self.kuka_height = args['kuka_height']
         self.x_shift = args['x_shift']
         self.y_shift = args['y_shift']
+        self.x_dir = args['x_dir']
+        self.y_dir = args['y_dir']
         self.compressor = None
+        
+        self.n_colors = args['n_colors']
 
         if self.renderer in ['markerpen']:
             self.d = 12  # x0, y0, x1, y1, x2, y2, radius0, radius2, R, G, B, A
@@ -193,41 +197,47 @@ class Renderer:
         theta = np.pi * theta
 
         if self.make_log:
-            if self.color_idx == -1 and self.brush_idx == -1:
-                # first command
-                self.log.addChangeBrush(brush_idx)
-                self.brush_idx = brush_idx
-                self.log.addColorBrush(color_index)
-                self.color_idx = brush_idx
-                self.same_color_counts = 1
-            else:
-                color_changed = (self.color_idx != color_index)
-                brush_changed = (self.brush_idx != brush_idx)
-                if color_changed and brush_changed:
-                    self.log.addClearBrush()
+            if color_index != (self.n_colors - 1):
+                if self.color_idx == -1 and self.brush_idx == -1:
+                    # first command
                     self.log.addChangeBrush(brush_idx)
                     self.brush_idx = brush_idx
                     self.log.addColorBrush(color_index)
-                    self.color_idx = color_index
+                    self.log.addTestStroke()
+                    self.color_idx = brush_idx
                     self.same_color_counts = 1
-                elif color_changed and not brush_changed:
-                    self.log.addClearBrush()
-                    self.log.addColorBrush(color_index)
-                    self.color_idx = color_index
-                    self.same_color_counts = 1
-                elif not color_changed and brush_changed:
-                    self.log.addClearBrush()
-                    self.log.addChangeBrush(brush_idx)
-                    self.brush_idx = brush_idx
-                    self.log.addColorBrush(color_index)
-                    self.same_color_counts = 1
-                elif not color_changed and not brush_changed:
-                    if self.same_color_counts < self.n_without_dipping:
-                        self.same_color_counts += 1
-                    else:
+                else:
+                    color_changed = (self.color_idx != color_index)
+                    brush_changed = (self.brush_idx != brush_idx)
+                    if color_changed and brush_changed:
+                        self.log.addClearBrush()
+                        self.log.addChangeBrush(brush_idx)
+                        self.brush_idx = brush_idx
                         self.log.addColorBrush(color_index)
+                        self.log.addTestStroke()
+                        self.color_idx = color_index
                         self.same_color_counts = 1
-            self.send_kuka_coords([x0, y0], h, w, theta)
+                    elif color_changed and not brush_changed:
+                        self.log.addClearBrush()
+                        self.log.addColorBrush(color_index)
+                        self.log.addTestStroke()
+                        self.color_idx = color_index
+                        self.same_color_counts = 1
+                    elif not color_changed and brush_changed:
+                        self.log.addClearBrush()
+                        self.log.addChangeBrush(brush_idx)
+                        self.brush_idx = brush_idx
+                        self.log.addColorBrush(color_index)
+                        self.log.addTestStroke()
+                        self.same_color_counts = 1
+                    elif not color_changed and not brush_changed:
+                        if self.same_color_counts < self.n_without_dipping:
+                            self.same_color_counts += 1
+                        else:
+                            self.log.addColorBrush(color_index)
+                            self.log.addTestStroke()
+                            self.same_color_counts = 1
+                self.send_kuka_coords([x0, y0], h, w, theta)
 
 
         x0 = _normalize(x0, self.CANVAS_WIDTH)
@@ -301,11 +311,17 @@ class Renderer:
                         # /self.CANVAS_WIDTH
         to_float = lambda point: [float(el) for el in point]
         shift_coords = np.array([self.x_shift, self.y_shift])  # in mm
-        left_point = to_float(left_point*normalization + shift_coords)
+        axis_dir = np.array([self.x_dir, self.y_dir])
+        left_point = to_float(axis_dir*left_point*normalization + shift_coords)
 
-        mid_point = to_float(mid_point*normalization + shift_coords)
+        mid_point = to_float(axis_dir*mid_point*normalization + shift_coords)
 
-        right_point = to_float(right_point*normalization + shift_coords)
+        right_point = to_float(axis_dir*right_point*normalization + shift_coords)
+
+        _round = lambda point: [round(el)/1. for el in point]
+        left_point = _round(left_point)
+        mid_point = _round(mid_point)
+        right_point = _round(right_point)
         self.log.addSplineStroke(*left_point, *mid_point, *right_point)
 
     def choose_color(self, color):
