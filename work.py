@@ -35,11 +35,8 @@ args = {
     'renderer': 'oilpaintbrush',
     'canvas_color': 'white',
 
-<<<<<<< HEAD
     'img_path': 'test_images/cat3.jpeg',
-=======
     'img_path': 'test_images/peach.jpg',
->>>>>>> 198e49387ee6e1d7f2006a7071fa1520e7d0c498
     'canvas_size': 512,
     'keep_aspect_ratio': True,
     # 'max_m_strokes' : 14*3 if device.type=='cpu' else 600,
@@ -62,17 +59,16 @@ args = {
     # KUKA
     'KukaLog': True,
     'clamp': True,  # whether to clamp brush widths to kuka width range
-<<<<<<< HEAD
+
     'kuka_width': 300.,  # in mm
     'kuka_height': 400.,  # in mm
     'x_shift': 300.,  # in mm
     'y_shift': 400.,  # in mm
-=======
     'kuka_width': 200.,  # in mm
     'kuka_height': 200.,  # in mm
     'x_shift': 200.,  # in mm
     'y_shift': 200.,  # in mm
->>>>>>> 198e49387ee6e1d7f2006a7071fa1520e7d0c498
+
     'x_dir': -1,
     'y_dir': -1,
     'suppression_freq': 25,  # clamp params every `suppression_freq'th` iteration
@@ -87,11 +83,7 @@ args = {
     'min_h': 10.,  # in mm
 
     # COLORS
-<<<<<<< HEAD
-    'n_colors': 6,  # n of quantized colors
-=======
     'n_colors': 5,  # n of quantized colors
->>>>>>> 198e49387ee6e1d7f2006a7071fa1520e7d0c498
     'colors_dir': 'colors',
     # whether to use color-compressed reference or not
     'use_compressed_ref': True,
@@ -99,11 +91,8 @@ args = {
     'save_video': True,
     'video_dir': 'animations',
     'video': 'MP4V',
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 198e49387ee6e1d7f2006a7071fa1520e7d0c498
+
     'cam_dir': 'cam_images',
     'batch_start_id': 1,  # след рисуемый батч
 }
@@ -231,10 +220,8 @@ def optimize_x(pt):
                 while not os.path.exists(result_filepath):
                     time.sleep(1)
                 result_data = None
-<<<<<<< HEAD
-=======
                 print(f'READING batch_{batch_id}_out.pkl')
->>>>>>> 198e49387ee6e1d7f2006a7071fa1520e7d0c498
+
                 with open(result_filepath, 'rb') as f:
                     result_data = pickle.load(f)
                 result_data = utils.preproc_camera_image(result_data, args['cam_dir'],
