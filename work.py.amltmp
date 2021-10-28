@@ -31,7 +31,7 @@ args = {
     'sub_experiment': False,
 
 
-    'grid_div': sorted([5, 6, 7, 8]) if FAST_TESTING else sorted([4, 6, 8]),
+    'grid_div': sorted([5, 6, 7, 8]) if FAST_TESTING else sorted([3, 4, 6]),
     'max_m_strokes': 174*1 if FAST_TESTING else 500,
     'iters_per_stroke': 2 if FAST_TESTING else 200,
     'batch_start_id': 0,

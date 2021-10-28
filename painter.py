@@ -150,7 +150,7 @@ class PainterBase():
         v[:, :, :, np.hstack([xs, ys])] /= self.m_grid
 
         v = v.reshape(-1, d)
-        v = v[self.keep_mask]
+        v = v[self.keep_mask.detach().cpu().numpy()]
         return v
 
 
