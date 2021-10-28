@@ -3,50 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d4030c99-6e0b-4f3b-962b-e94d2e21ccdc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/0b644224-2110-4c23-81fb-0d1353e2881a/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/0b644224-2110-4c23-81fb-0d1353e2881a/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/0b644224-2110-4c23-81fb-0d1353e2881a/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/0b644224-2110-4c23-81fb-0d1353e2881a/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/0b644224-2110-4c23-81fb-0d1353e2881a/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/0b644224-2110-4c23-81fb-0d1353e2881a/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a58cce8-2fa3-478d-ab66-154fe1f4a2af/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a58cce8-2fa3-478d-ab66-154fe1f4a2af/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a58cce8-2fa3-478d-ab66-154fe1f4a2af/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a58cce8-2fa3-478d-ab66-154fe1f4a2af/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a58cce8-2fa3-478d-ab66-154fe1f4a2af/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a58cce8-2fa3-478d-ab66-154fe1f4a2af/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a5aec55-30cc-4530-9cac-f1ef8153df91/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a5aec55-30cc-4530-9cac-f1ef8153df91/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a5aec55-30cc-4530-9cac-f1ef8153df91/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a5aec55-30cc-4530-9cac-f1ef8153df91/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a5aec55-30cc-4530-9cac-f1ef8153df91/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/5a5aec55-30cc-4530-9cac-f1ef8153df91/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/7a3d7ff8-f4f1-427e-9e8a-daa1aa87f2db/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/7a3d7ff8-f4f1-427e-9e8a-daa1aa87f2db/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/7a3d7ff8-f4f1-427e-9e8a-daa1aa87f2db/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/7a3d7ff8-f4f1-427e-9e8a-daa1aa87f2db/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/7a3d7ff8-f4f1-427e-9e8a-daa1aa87f2db/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/7a3d7ff8-f4f1-427e-9e8a-daa1aa87f2db/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/b16c6720-241d-45e9-915f-1cf286c3bf0c/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/b16c6720-241d-45e9-915f-1cf286c3bf0c/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/b16c6720-241d-45e9-915f-1cf286c3bf0c/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/b16c6720-241d-45e9-915f-1cf286c3bf0c/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/b16c6720-241d-45e9-915f-1cf286c3bf0c/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/b16c6720-241d-45e9-915f-1cf286c3bf0c/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/bb76a2a9-0ec2-4df3-8695-83e892a44c43/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/bb76a2a9-0ec2-4df3-8695-83e892a44c43/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/bb76a2a9-0ec2-4df3-8695-83e892a44c43/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/bb76a2a9-0ec2-4df3-8695-83e892a44c43/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/bb76a2a9-0ec2-4df3-8695-83e892a44c43/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/bb76a2a9-0ec2-4df3-8695-83e892a44c43/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/da2c2b3b-368b-4668-a00f-f47eeee1befe/colors/5colorsRGB.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/da2c2b3b-368b-4668-a00f-f47eeee1befe/colors/5colors_palette.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/da2c2b3b-368b-4668-a00f-f47eeee1befe/description.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/da2c2b3b-368b-4668-a00f-f47eeee1befe/vf_batches/v_canvas/animation.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/da2c2b3b-368b-4668-a00f-f47eeee1befe/vf_batches/v_canvas/reference.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/cat3/da2c2b3b-368b-4668-a00f-f47eeee1befe/vf_batches/v_canvas/reference_compressed.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/painter.py" beforeDir="false" afterPath="$PROJECT_DIR$/painter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work.py" beforeDir="false" afterPath="$PROJECT_DIR$/work.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/renderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/renderer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +42,7 @@
     <property name="python.debugger.dataview.autoresize" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager" selected="Python.work">
+  <component name="RunManager" selected="Python.recover_json">
     <configuration name="delete" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OldPainter" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -108,6 +65,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="recover_json" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="OldPainter" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/recover_json.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="testing_coords" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="OldPainter" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -122,28 +101,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testing_coords.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="white_detection" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OldPainter" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/white_detection.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -198,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.recover_json" />
         <item itemvalue="Python.work" />
         <item itemvalue="Python.delete" />
         <item itemvalue="Python.testing_coords" />
         <item itemvalue="Python.work_new" />
-        <item itemvalue="Python.white_detection" />
       </list>
     </recent_temporary>
   </component>
@@ -222,7 +179,7 @@
       <workItem from="1634328276851" duration="2029000" />
       <workItem from="1634376066874" duration="50387000" />
       <workItem from="1634743064024" duration="20903000" />
-      <workItem from="1634839617783" duration="82320000" />
+      <workItem from="1634839617783" duration="87583000" />
     </task>
     <servers />
   </component>
@@ -255,9 +212,10 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/OldPainter$testing_coords.coverage" NAME="testing_coords Coverage Results" MODIFIED="1635411818384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OldPainter$delete.coverage" NAME="delete Coverage Results" MODIFIED="1635421410490" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OldPainter$recover_json.coverage" NAME="recover_json Coverage Results" MODIFIED="1635440095342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OldPainter$image_compressor.coverage" NAME="image_compressor Coverage Results" MODIFIED="1634632268841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OldPainter$white_detection.coverage" NAME="white_detection Coverage Results" MODIFIED="1634640573835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/OldPainter$work.coverage" NAME="work Coverage Results" MODIFIED="1635431993951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OldPainter$work.coverage" NAME="work Coverage Results" MODIFIED="1635432215376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OldPainter$z_work.coverage" NAME="z_work Coverage Results" MODIFIED="1633983840480" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OldPainter$work_new.coverage" NAME="work_new Coverage Results" MODIFIED="1635348807779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
