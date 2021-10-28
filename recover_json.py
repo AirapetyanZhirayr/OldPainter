@@ -6,7 +6,7 @@ import cv2
 from renderer import Renderer, _normalize
 import matplotlib.pyplot as plt
 
-experiment_path = '/Users/jiji/Desktop/OldPainter/experiments/cat3/0a6e2df2-9e7f-48cd-8dd7-955565a2fa38'
+experiment_path = 'experiments/cat3/0a6e2df2-9e7f-48cd-8dd7-955565a2fa38'
 # loading args from analyzed experiment
 with open(os.path.join(experiment_path, 'description.txt'), 'r') as f:
     args = json.load(f)
