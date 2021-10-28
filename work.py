@@ -33,7 +33,7 @@ args = {
 
     'grid_div': sorted([5, 6, 7, 8]) if FAST_TESTING else sorted([4, 6, 8]),
     'max_m_strokes': 174*1 if FAST_TESTING else 500,
-    'iters_per_stroke': 2 if FAST_TESTING else 200,
+    'iters_per_stroke': 2 if FAST_TESTING else 1,
     'batch_start_id': 0,
     # KUKA
     'clamp' : True,

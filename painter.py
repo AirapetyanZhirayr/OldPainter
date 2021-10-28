@@ -78,12 +78,13 @@ class PainterBase():
         return v
 
     def _shuffle_strokes_and_reshape(self, v):
+        # v.shape = [-1, d]
 
         # grid_idx = list(range(self.m_grid ** 2))
         grid_idx = list(range(len(v)))
         random.shuffle(grid_idx)
-        v = v[grid_idx, :, :]
-        v = np.reshape(np.transpose(v, [1, 0, 2]), [-1, self.rderr.d])
+        v = v[grid_idx, :]
+        # v = np.reshape(np.transpose(v, [1, 0, 2]), [-1, self.rderr.d])
         v = np.expand_dims(v, axis=0)
 
         return v
@@ -131,26 +132,28 @@ class PainterBase():
         else:
             raise NotImplementedError('renderer [%s] is not implemented' % self.rderr.renderer)
 
-        _v = np.array(v.detach().cpu())
-        v = np.zeros((self.m_grid*self.m_grid, self.m_strokes_per_block, self.rderr.d), dtype=np.float32)
-        v[self.keep_idx] = _v
+        # v.shape = [m_grid**2, m_strokes_per_block, d]
+        v = v.detach().cpu().numpy()
         _, _, d = v.shape
         v[:, :, rs] /= self.m_grid
-        v = v.reshape(self.m_grid, self.m_grid, -1, d)
+        v[np.isnan(v)] = 0.
+
+
         x_id = np.arange(self.m_grid)
         y_id = np.arange(self.m_grid)
         x_id, y_id = np.meshgrid(x_id, y_id)
         grid_id = np.c_[x_id.ravel(), y_id.ravel()]
         grid_id = grid_id.reshape(self.m_grid, self.m_grid, 1, 2)
+
+        v = v.reshape(self.m_grid, self.m_grid, -1, d)
         v[:, :, :, np.hstack([xs, ys])] += grid_id
         v[:, :, :, np.hstack([xs, ys])] /= self.m_grid
-        v = v.reshape(self.m_grid**2, -1, d)
+
+        v = v.reshape(-1, d)
         v = v[self.keep_mask]
-
         return v
 
 
-        return v
 
     def initialize_params(self):
         # uniform init
@@ -231,7 +234,6 @@ class PainterBase():
     def _forward_pass(self):
 
         self.x = torch.cat([self.x_ctt, self.x_w, self.x_h, self.x_color, self.x_alpha], dim=-1)
-        print(f'self.x.shape : [{self.x.shape}]')
 
         # v - all already sampled in current batch strokes
         v = torch.reshape(self.x[:, 0:self.anchor_id + 1, :],
@@ -239,13 +241,8 @@ class PainterBase():
 
         keep_mask = ~torch.all(torch.isnan(v), dim=-1)
         self.keep_mask = keep_mask
-        print(f'keep_mask.shape : [{keep_mask.shape}]')
-
         keep_idx = torch.where(keep_mask)[0]
         self.keep_idx = keep_idx
-
-        self.x = self.x[torch.reshape(keep_mask, self.x.shape[:-1])]
-        # self.x = self.x[keep_mask]
 
         v = v[keep_mask][..., None, None]
         # print(v.shape)
