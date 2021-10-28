@@ -2,21 +2,14 @@ import os
 import json
 
 
-class KukaLog():
+class KukaLog:
 
-    # def __init__(self, batch_id):
-    #     result_filepath = os.path.join('./', 'batch_{}.txt'.format(batch_id))
-    #     self.f = open(result_filepath, 'w')
-    #     self.commands = []
-
-    def __init__(self, batch_dir, img_name, batch_id):
-        if os.path.exists(batch_dir) is False:
-            os.mkdir(batch_dir)
-        result_filepath = os.path.join(batch_dir, img_name)
-        if os.path.exists(result_filepath) is False:
-            os.mkdir(result_filepath)
-        result_filepath = os.path.join(result_filepath, f'batch_{batch_id}.json')
-        self.f = open(result_filepath, 'w')
+    def __init__(self, log_dir1, log_dir2, batch_id):
+        # log_dir[1, 2] for local and interaction directories
+        self.log_dir1 = log_dir1
+        self.log_dir2 = log_dir2
+        self.log_path1 = os.path.join(log_dir1, f'batch_{batch_id}.json')
+        self.log_path2 = os.path.join(log_dir2, f'batch_{batch_id}.json')
         self.commands = []
 
     def addTestStroke(self):
@@ -45,7 +38,9 @@ class KukaLog():
 
     def EndWrite(self):
         self.json = {'common_data': {"brush_tilt_threshold": 30}, 'commands': self.commands}
-        json.dump(self.json, self.f, indent=' ')
-        self.f.close()
 
+        with open(self.log_path1, 'w') as f:
+            json.dump(self.json, f, indent=' ')
 
+        with open(self.log_path2, 'w') as f:
+            json.dump(self.json, f, indent=' ')

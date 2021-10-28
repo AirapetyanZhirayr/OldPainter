@@ -1,0 +1,102 @@
+{
+ "common_data": {
+  "brush_tilt_threshold": 30
+ },
+ "commands": [
+  {
+   "action": "change_brush",
+   "data": {
+    "brush_num": 1
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 130.0,
+     "y": 307.0
+    },
+    "p1": {
+     "x": 135.0,
+     "y": 326.0
+    },
+    "p2": {
+     "x": 140.0,
+     "y": 345.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 101.0,
+     "y": 173.0
+    },
+    "p1": {
+     "x": 113.0,
+     "y": 161.0
+    },
+    "p2": {
+     "x": 125.0,
+     "y": 149.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 165.0,
+     "y": 231.0
+    },
+    "p1": {
+     "x": 179.0,
+     "y": 235.0
+    },
+    "p2": {
+     "x": 194.0,
+     "y": 239.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 204.0,
+     "y": 97.0
+    },
+    "p1": {
+     "x": 212.0,
+     "y": 113.0
+    },
+    "p2": {
+     "x": 221.0,
+     "y": 129.0
+    }
+   }
+  }
+ ]
+}

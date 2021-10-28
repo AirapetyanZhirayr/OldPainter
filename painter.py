@@ -3,18 +3,14 @@ import cv2
 import random
 
 import matplotlib.pyplot as plt
+import numpy as np
 
-import utils
 import loss
 from networks import *
 import morphology
-
 import renderer
-
 import torch
-
-import image_compressor
-from image_compressor import ImgCompress
+from image_compressor import ImgCompressor
 
 # Decide which device we want to run on
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -23,6 +19,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class PainterBase():
 
     def __init__(self, args):
+        self.checkpoint_dir = args['renderer_checkpoint_dir']
+
         self.args = args
 
         self.rderr = renderer.Renderer(args=args)
@@ -30,29 +28,17 @@ class PainterBase():
         # define G
         self.net_G = define_G(rdrr=self.rderr, netG=args['net_G']).to(device)
 
-        self.G_loss = torch.tensor(0.0)
-        self.real_loos = torch.tensor(0.0)
-
-        self.renderer_checkpoint_dir = args['renderer_checkpoint_dir']
-        self.output_dir = args['output_dir']
-        if os.path.exists(self.output_dir) is False: os.mkdir(self.output_dir)
-        self.video_dir = args['video_dir']
-        if os.path.exists(self.video_dir) is False: os.mkdir(self.video_dir)
-
         self.lr = args['lr']
 
-        # define the loss functions
         self._pxl_loss = loss.PixelLoss(p=1)
         self._sinkhorn_loss = loss.SinkhornLoss(epsilon=0.01, niter=5, normalize=False)
-
     def _load_checkpoint(self):
-
+        ckpt_path = os.path.join(self.checkpoint_dir, 'last_ckpt.pt')
         # load renderer G
-        if os.path.exists((os.path.join(
-                self.renderer_checkpoint_dir, 'last_ckpt.pt'))):
+        if os.path.exists(ckpt_path):
             print('loading renderer from pre-trained checkpoint...')
             # load the entire checkpoint
-            checkpoint = torch.load(os.path.join(self.renderer_checkpoint_dir, 'last_ckpt.pt'),
+            checkpoint = torch.load(ckpt_path,
                                     map_location=None if torch.cuda.is_available() else device)
             # update net_G states
             self.net_G.load_state_dict(checkpoint['model_G_state_dict'])
@@ -69,31 +55,6 @@ class PainterBase():
         psnr = utils.cpt_batch_psnr(canvas, target, PIXEL_MAX=1.0)
 
         return psnr
-
-    def _save_stroke_params(self, v):
-
-        d_shape = self.rderr.d_shape
-        d_color = self.rderr.d_color
-        d_alpha = self.rderr.d_alpha
-
-        x_ctt = v[:, :, 0:d_shape - 2]
-        x_w = v[:, :, d_shape - 2:d_shape - 1]
-        x_h = v[:, :, d_shape - 1:d_shape]
-        x_color = v[:, :, d_shape:d_shape + d_color]
-        x_alpha = v[:, :, d_shape + d_color:d_shape + d_color + d_alpha]
-        print('saving stroke parameters...')
-        file_name = os.path.join(self.output_dir, self.img_name)
-        if os.path.exists(file_name) is False:
-            os.mkdir(file_name)
-        name = f'{self.img_name}_{self.n_colors}c_{self.m_strokes}s'
-        if self.clamped:
-            name += '_clamped'
-
-        file_name = os.path.join(
-            file_name, name)
-        np.savez(file_name + '_strokes.npz', x_ctt=x_ctt, x_w=x_w, x_h=x_h,
-                 x_color=x_color, x_alpha=x_alpha)
-
 
     def _sort_strokes(self, v, by):
         v = v[0, :, :]
@@ -116,10 +77,10 @@ class PainterBase():
         v = v[None, ...]
         return v
 
-
     def _shuffle_strokes_and_reshape(self, v):
 
-        grid_idx = list(range(self.m_grid ** 2))
+        # grid_idx = list(range(self.m_grid ** 2))
+        grid_idx = list(range(len(v)))
         random.shuffle(grid_idx)
         v = v[grid_idx, :, :]
         v = np.reshape(np.transpose(v, [1, 0, 2]), [-1, self.rderr.d])
@@ -127,19 +88,13 @@ class PainterBase():
 
         return v
 
-    def _render(self, v, index, save_jpgs=True, save_video=True):
+    def _render(self, v, index):
 
         v = v[0, :, :]
         out_h, out_w = self.out_h, self.out_w
 
-        file_dir = os.path.join(
-            self.output_dir, self.img_name)
-        if os.path.exists(file_dir) is False:
-            os.mkdir(file_dir)
-
         print('rendering canvas...')
-        if self.make_log:
-            self.rderr.create_log(self.batch_id)
+        self.rderr.create_log(self.batch_id)
 
         for i in range(index, v.shape[0]):  # for each stroke
             self.rderr.stroke_params = v[i, :]
@@ -149,32 +104,20 @@ class PainterBase():
             this_frame = self.rderr.canvas
             this_frame = cv2.resize(this_frame, (out_w, out_h), cv2.INTER_AREA)
 
-            if save_video:
-                self.video_writer.write((this_frame[:, :, ::-1] * 255.).astype(np.uint8))
-
-        if save_jpgs:
-            print('saving input photo...')
-            out_img = cv2.resize(self.img_, (out_w, out_h), cv2.INTER_AREA)
-            plt.imsave(file_dir + f'/{self.img_name}_input.png', out_img)
+            self.video_writer.write((this_frame[:, :, ::-1] * 255.).astype(np.uint8))
 
         final_rendered_image = np.copy(this_frame)
-        if save_jpgs:
-            print('saving final rendered result...')
-            file_name = os.path.join(file_dir, f'{self.img_name}_{self.n_colors}c_{self.m_strokes}s')
-            if self.clamped:
-                file_name += '_clamped'
-            plt.imsave(file_name + '_final_{}.png'.format(self.batch_id), final_rendered_image)
-        #             plt.imsave(file_name + '_final_my.png', my_frame)
+        print('saving final rendered result...')
+        file_path = os.path.join(self.v_canvas_dir, f'batch_{self.batch_id}.jpg')
+        cv2.imwrite(file_path, (final_rendered_image[:,:,::-1]*255.).astype(np.uint8))
 
-        if self.make_log:
-            self.rderr.end_log()
+        self.rderr.end_log()
 
         return final_rendered_image
 
     def _normalize_strokes(self, v):
 
-        v = np.array(v.detach().cpu())
-
+        # from patch [0, 1] to image [0, 1]
         if self.rderr.renderer in ['watercolor', 'markerpen']:
             # x0, y0, x1, y1, x2, y2, radius0, radius2, ...
             xs = np.array([0, 4])
@@ -188,20 +131,29 @@ class PainterBase():
         else:
             raise NotImplementedError('renderer [%s] is not implemented' % self.rderr.renderer)
 
-        for y_id in range(self.m_grid):
-            for x_id in range(self.m_grid):
-                y_bias = y_id / self.m_grid
-                x_bias = x_id / self.m_grid
-                v[y_id * self.m_grid + x_id, :, ys] = \
-                    y_bias + v[y_id * self.m_grid + x_id, :, ys] / self.m_grid
-                v[y_id * self.m_grid + x_id, :, xs] = \
-                    x_bias + v[y_id * self.m_grid + x_id, :, xs] / self.m_grid
-                v[y_id * self.m_grid + x_id, :, rs] /= self.m_grid
+        _v = np.array(v.detach().cpu())
+        v = np.zeros((self.m_grid*self.m_grid, self.m_strokes_per_block, self.rderr.d), dtype=np.float32)
+        v[self.keep_idx] = _v
+        _, _, d = v.shape
+        v[:, :, rs] /= self.m_grid
+        v = v.reshape(self.m_grid, self.m_grid, -1, d)
+        x_id = np.arange(self.m_grid)
+        y_id = np.arange(self.m_grid)
+        x_id, y_id = np.meshgrid(x_id, y_id)
+        grid_id = np.c_[x_id.ravel(), y_id.ravel()]
+        grid_id = grid_id.reshape(self.m_grid, self.m_grid, 1, 2)
+        v[:, :, :, np.hstack([xs, ys])] += grid_id
+        v[:, :, :, np.hstack([xs, ys])] /= self.m_grid
+        v = v.reshape(self.m_grid**2, -1, d)
+        v = v[self.keep_mask]
+
+        return v
+
 
         return v
 
     def initialize_params(self):
-
+        # uniform init
         self.x_ctt = np.random.rand(
             self.m_grid * self.m_grid, self.m_strokes_per_block,
             self.rderr.d_shape - 2).astype(np.float32)
@@ -247,18 +199,22 @@ class PainterBase():
             self.rderr.random_stroke_params_sampler(
                 err_map=this_err_map, img=this_img)
 
-            self.x_ctt.data[i, anchor_id, :] = torch.tensor(
-                self.rderr.stroke_params[0:self.rderr.d_shape - 2])
+            self._insert_stroke_params(i, anchor_id, self.rderr.stroke_params)
 
-            self.x_w.data[i, anchor_id, :] = torch.tensor(
-                self.rderr.stroke_params[self.rderr.d_shape - 2:self.rderr.d_shape - 1])
+    def _insert_stroke_params(self, grid_id, stroke_id, stroke_params):
 
-            self.x_h.data[i, anchor_id, :] = torch.tensor(
-                self.rderr.stroke_params[self.rderr.d_shape - 1:self.rderr.d_shape])
+        self.x_ctt.data[grid_id, stroke_id, :] = torch.tensor(
+            stroke_params[0:self.rderr.d_shape - 2], dtype=torch.float32)
 
-            self.x_color.data[i, anchor_id, :] = torch.tensor(
-                self.rderr.stroke_params[self.rderr.d_shape:self.rderr.d_shape + self.rderr.d_color])
-            self.x_alpha.data[i, anchor_id, :] = torch.tensor(self.rderr.stroke_params[-1])
+        self.x_w.data[grid_id, stroke_id, :] = torch.tensor(
+            stroke_params[self.rderr.d_shape - 2:self.rderr.d_shape - 1], dtype=torch.float32)
+
+        self.x_h.data[grid_id, stroke_id, :] = torch.tensor(
+            stroke_params[self.rderr.d_shape - 1:self.rderr.d_shape], dtype=torch.float32)
+
+        self.x_color.data[grid_id, stroke_id, :] = torch.tensor(
+            stroke_params[self.rderr.d_shape:self.rderr.d_shape + self.rderr.d_color], dtype=torch.float32)
+        self.x_alpha.data[grid_id, stroke_id, :] = torch.tensor(stroke_params[-1], dtype=torch.float32)
 
     def _backward_x(self):
 
@@ -271,30 +227,59 @@ class PainterBase():
                 self.G_final_pred_canvas, self.img_batch)
         self.G_loss.backward()
 
+
     def _forward_pass(self):
 
         self.x = torch.cat([self.x_ctt, self.x_w, self.x_h, self.x_color, self.x_alpha], dim=-1)
 
-        # v - all already sampled strokes
+        # v - all already sampled in current batch strokes
         v = torch.reshape(self.x[:, 0:self.anchor_id + 1, :],
-                          [self.m_grid * self.m_grid * (self.anchor_id + 1), -1, 1, 1])
+                          [self.m_grid * self.m_grid * (self.anchor_id + 1), -1])
 
+        keep_mask = ~torch.all(torch.isnan(v), dim=-1)
+        self.keep_mask = keep_mask
+        keep_idx = torch.where(keep_mask)[0]
+        self.keep_idx = keep_idx
+
+        self.x = self.x[keep_mask]
+        v = v[keep_mask][..., None, None]
+        # print(v.shape)
+        # v[0,:,0,0] = torch.tensor([0.5, 0.5, 0/10**10, 1., 1., 1., 1., 1., 1.], dtype=torch.double)
+        # v[1,:,0,0] = torch.tensor([0.5, 0.5, 1/8., 1., 1., 1., 1., 1., 1.], dtype=torch.double)
+
+        # v = torch.from_numpy(np.array([0.5, 0.5, 0., 1., 1., 1., 1., 1., 1.], dtype=np.float64))[None, ..., None, None]
         self.G_pred_foregrounds, self.G_pred_alphas = self.net_G(v)
+        # plt.imshow(self.G_pred_foregrounds[0].detach().numpy().transpose([1, 2, 0]))
+        # plt.show()
+        # plt.imshow(self.G_pred_foregrounds[1].detach().numpy().transpose([1, 2, 0]))
+        # plt.show()
+        # plt.imshow(self.G_pred_foregrounds[0].detach().numpy().transpose([1, 2, 0]))
+        # plt.show()
 
         self.G_pred_foregrounds = morphology.Dilation2d(m=1)(self.G_pred_foregrounds)
         self.G_pred_alphas = morphology.Erosion2d(m=1)(self.G_pred_alphas)
 
-        self.G_pred_foregrounds = torch.reshape(
-            self.G_pred_foregrounds, [self.m_grid * self.m_grid, self.anchor_id + 1, 3,
+        G_pred_foregrounds = torch.zeros(self.m_grid**2*(self.anchor_id+1), 3, self.net_G.out_size, self.net_G.out_size)
+        G_pred_alphas = torch.zeros_like(G_pred_foregrounds)
+        #
+        for i in range(len(self.G_pred_foregrounds)):
+            G_pred_foregrounds[keep_idx[i]] = self.G_pred_foregrounds[i]
+            G_pred_alphas[keep_idx[i]] = self.G_pred_alphas[i]
+
+
+        G_pred_foregrounds = torch.reshape(
+            G_pred_foregrounds, [self.m_grid * self.m_grid, self.anchor_id + 1, 3,
                                       self.net_G.out_size, self.net_G.out_size])
 
-        self.G_pred_alphas = torch.reshape(
-            self.G_pred_alphas, [self.m_grid * self.m_grid, self.anchor_id + 1, 3,
+        G_pred_alphas = torch.reshape(
+            G_pred_alphas, [self.m_grid * self.m_grid, self.anchor_id + 1, 3,
                                  self.net_G.out_size, self.net_G.out_size])
 
         for i in range(self.anchor_id + 1):
-            G_pred_foreground = self.G_pred_foregrounds[:, i]
-            G_pred_alpha = self.G_pred_alphas[:, i]
+            # G_pred_foreground = self.G_pred_foregrounds[:, i]
+            # G_pred_alpha = self.G_pred_alphas[:, i]
+            G_pred_foreground = G_pred_foregrounds[:, i]
+            G_pred_alpha = G_pred_alphas[:, i]
             self.G_pred_canvas = G_pred_foreground * G_pred_alpha \
                                  + self.G_pred_canvas * (1 - G_pred_alpha)
 
@@ -302,74 +287,107 @@ class PainterBase():
         self.G_final_pred_canvas = self.G_pred_canvas
 
 
-
 class ProgressivePainter(PainterBase):
 
     def __init__(self, args):
         super(ProgressivePainter, self).__init__(args=args)
 
-        self.kuka_interaction = args['KukaInteraction']
-
-        self.start_divide = args['start_divide']
-        self.max_divide = args['max_divide']
+        self.canvas_size = args['canvas_size']
+        self.clamped = args['clamp']
+        self.grid_div = args['grid_div']
+        self.max_divide = max(self.grid_div)
         self.max_m_strokes = args['max_m_strokes']
 
-        self.make_log = args['KukaLog']
         self.use_compressed_ref = args['use_compressed_ref']
         self.keep_aspect_ratio = args['keep_aspect_ratio']
-
-        self.m_strokes_per_block, self.m_strokes = self.stroke_parser()
-        print(f'Strokes per block : {self.m_strokes_per_block}')
+        self.m_strokes_per_block = args['m_strokes_per_block']
+        self.m_strokes = args['m_strokes']
 
         self.img_path = args['img_path']
-        self.img_name = os.path.split(self.img_path)[-1]
-        self.img_name, self.img_extension = self.img_name.split('.')
+        self.img_name = args['img_name']
         self.img_ = cv2.imread(args['img_path'], cv2.IMREAD_COLOR)
         self.img_ = cv2.cvtColor(self.img_, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
-        self.n_colors = args['n_colors']
+
         self.colors_dir = args['colors_dir']
+        self.n_colors = args['n_colors']
+
+        self.kuka_interaction = args['camera_interaction']
+        self.v_canvas_dir = args['virtual_canvas_dir']
+
+        compressor = ImgCompressor(self.img_, self.n_colors, sample_size=args['compressor_sample_size'])
+        compressor.save_colors(self.colors_dir)
+        compressor.save_palette(self.colors_dir)
+
         if self.kuka_interaction:
-            compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, '')
-        else:
-            compressor = ImgCompress(self.img_, self.n_colors, self.colors_dir, self.img_name)
+            self.c_canvas_dir = args['camera_canvas_dir']
+
+        cv2.imwrite(os.path.join(self.v_canvas_dir, 'reference.jpg'),
+                    (self.img_[:, :, [2,1,0]]*255.).astype(np.uint8))
+        cv2.imwrite(os.path.join(self.v_canvas_dir, 'reference_compressed.jpg'),
+                    (compressor.img_compressed[:, :, [2,1,0]]*255.).astype(np.uint8))
+
 
         if self.use_compressed_ref:
-            self.img_ = compressor.image_compressed
+            self.img_ = compressor.img_compressed
         self.rderr.compressor = compressor
-        self.input_aspect_ratio = self.img_.shape[0] / self.img_.shape[1]
 
-        if self.keep_aspect_ratio:
-            if self.input_aspect_ratio < 1:
-                self.out_h = int(self.args['canvas_size'] * self.input_aspect_ratio)
-                self.out_w = self.args['canvas_size']
-            else:
-                self.out_h = self.args['canvas_size']
-                self.out_w = int(self.args['canvas_size'] / self.input_aspect_ratio)
-        else:
-            self.out_h = self.args['canvas_size']
-            self.out_w = self.args['canvas_size']
+        self.input_aspect_ratio = self.img_.shape[0] / self.img_.shape[1]
+        self.define_out_size()  # self.out_h, self.out_w
 
 
         self.img_ = cv2.resize(self.img_, (self.net_G.out_size * self.max_divide,
                                            self.net_G.out_size * self.max_divide), cv2.INTER_AREA)
-        self.clamped = args['clamp']
-        self.img_subscript = f'_{self.n_colors}c_{self.m_strokes}s'
-        if self.clamped: self.img_subscript += '_clamped'
-        self.video_path = os.path.join(self.video_dir, self.img_name + self.img_subscript + '.mp4')
-        self.video_writer = cv2.VideoWriter(
-            self.video_path, cv2.VideoWriter_fourcc(*self.args['video']), 40,
+        self.video_dir = args['video_dir']
+        video_path = os.path.join(self.video_dir, 'animation' + '.mp4')
+        if args['batch_start_id']:
+            try:
+                frames = []
+                cap = cv2.VideoCapture(video_path)
+                while cap.isOpened():
+                    r, frame = cap.read()
+                    if not r:
+                        break
+                    frames.append(frame)
+                self.video_writer = cv2.VideoWriter(
+                    video_path, cv2.VideoWriter_fourcc(*self.args['video']), 40,
+                    (self.out_w, self.out_h))
+                for frame in frames:
+                    self.video_writer.write(frame)
+            except SystemError:
+                self.video_writer = cv2.VideoWriter(
+                    video_path, cv2.VideoWriter_fourcc(*self.args['video']), 40,
+                    (self.out_w, self.out_h))
+        else:
+            self.video_writer = cv2.VideoWriter(
+            video_path, cv2.VideoWriter_fourcc(*self.args['video']), 40,
             (self.out_w, self.out_h))
 
+    def define_out_size(self):
+        if self.keep_aspect_ratio:
+            if self.input_aspect_ratio < 1:
+                self.out_h = int(self.canvas_size * self.input_aspect_ratio)
+                self.out_w = self.canvas_size
+            else:
+                self.out_h = self.canvas_size
+                self.out_w = int(self.canvas_size / self.input_aspect_ratio)
+        else:
+            self.out_h = self.canvas_size
+            self.out_w = self.canvas_size
 
-    def stroke_parser(self):
+    def set_params_requires_grad(self, requires_grad=True):
+        self.x_ctt.requires_grad = requires_grad
+        self.x_color.requires_grad = requires_grad
+        self.x_alpha.requires_grad = requires_grad
+        self.x_w.requires_grad = requires_grad
+        self.x_h.requires_grad = requires_grad
 
-        total_blocks = 0
-        for i in range(self.start_divide, self.max_divide + 1):
-            total_blocks += i ** 2
-        m_strokes_per_block = self.max_m_strokes // total_blocks
-        m_strokes = m_strokes_per_block*total_blocks
-
-        return m_strokes_per_block, m_strokes
+    def _clamp_params(self):
+        # clamping params to valid range
+        self.x_ctt.data = torch.clamp(self.x_ctt.data, 0.1, 1 - 0.1)
+        self.x_color.data = torch.clamp(self.x_color.data, 0, 1.)
+        self.x_alpha.data = torch.clamp(self.x_alpha.data, 0, 1.)
+        self.x_w.data = torch.clamp(self.x_w.data, 0, .5)
+        self.x_h.data = torch.clamp(self.x_h.data, 0, .5)
 
     def _drawing_step_states(self):
         acc = self._compute_acc().item()
@@ -377,19 +395,31 @@ class ProgressivePainter(PainterBase):
               % (self.step_id, self.G_loss.item(), acc,
                  self.m_grid, self.max_divide,
                  self.anchor_id + 1, self.m_strokes_per_block))
-        if self.step_id % 2 == 0:
-            adder = 0
-        else:
-            adder = 0.4
-        vis2 = utils.patches2img(self.G_final_pred_canvas, self.m_grid, adder).clip(min=0, max=1)
-        if self.args['disable_preview']:
-            pass
-        else:
-            cv2.namedWindow('G_pred', cv2.WINDOW_NORMAL)
-            cv2.namedWindow('input', cv2.WINDOW_NORMAL)
-            cv2.imshow('G_pred', vis2[:, :, ::-1])
-            cv2.imshow('input', self.img_[:, :, ::-1])
-            cv2.waitKey(1)
+
+    # def _forward_pass(self):
+    #     self.x = torch.cat([self.x_ctt, self.x_w, self.x_h, self.x_color, self.x_alpha], dim=-1)
+    #     v = torch.reshape(self.x[:, 0:self.anchor_id + 1, :],
+    #                       [self.m_grid * self.m_grid * (self.anchor_id + 1), -1, 1, 1])
+    #
+    #     self.G_pred_foregrounds, self.G_pred_alphas = self.net_G(v)
+    #     # G_pred_foregrounds.shape = G_pred_alphas.shape = [m_grid**2*(anchor_id+1), 3, out, out]
+    #
+    #
+    #     self.G_pred_foregrounds = torch.reshape(
+    #         self.G_pred_foregrounds, [self.m_grid * self.m_grid, self.anchor_id + 1, 3,
+    #                                   self.net_G.out_size, self.net_G.out_size])
+    #
+    #     self.G_pred_alphas = torch.reshape(
+    #         self.G_pred_alphas, [self.m_grid * self.m_grid, self.anchor_id + 1, 3,
+    #                              self.net_G.out_size, self.net_G.out_size])
+    #
+    #     for i in range(self.anchor_id + 1):
+    #         G_pred_foreground = self.G_pred_foregrounds[:, i]
+    #         G_pred_alpha = self.G_pred_alphas[:, i]
+    #         self.G_pred_canvas = G_pred_foreground * G_pred_alpha \
+    #                              + self.G_pred_canvas * (1 - G_pred_alpha)
+    #
+    #     self.G_final_pred_canvas = self.G_pred_canvas
 
 
 

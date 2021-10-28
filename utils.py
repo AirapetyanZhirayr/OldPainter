@@ -235,15 +235,6 @@ def img2patches(img, m_grid, s, adder, to_tensor=True):
     img_batch = np.zeros([m_grid ** 2, 3, s, s], np.float32)
     for y_id in range(m_grid):
         for x_id in range(m_grid):
-            # patch = img[round(s * adder) + y_id * s:y_id * s + round(s * (1 + adder)),
-            #        round(s * adder) + x_id * s:x_id * s + round(s * (1 + adder)), :].transpose([2, 0, 1])
-            # patch = img[y_id * s:y_id * s + s,
-            #        x_id * s:x_id * s + s, :].transpose([2, 0, 1])
-            # if patch.shape[1] != s or patch.shape[2] != s:
-            #     result = np.zeros((3, s, s))
-            #     result[:patch.shape[0], : patch.shape[1], : patch.shape[2]] = patch
-            #     patch = result
-            # img_batch[y_id * m_grid + x_id, :, :, :] = patch
             patch = img[y_id * s:y_id * s + s,
                     x_id * s:x_id * s + s, :].transpose([2, 0, 1])
             img_batch[y_id * m_grid + x_id, :, :, :] = patch
@@ -263,24 +254,6 @@ def patches2img(img_batch, m_grid, adder, to_numpy=True):
 
     for y_id in range(m_grid):
         for x_id in range(m_grid):
-            # patch = img_batch[y_id * m_grid + x_id, :, :, :]
-            # if(x_id + 1 == m_grid and adder > 0.0):
-            #     if(y_id + 1 == m_grid):
-            #         img[round(s * adder) + y_id * s:y_id * s + round(s * (1 + adder)),
-            #         round(s * adder) + x_id * s:x_id * s + round(s * (1 + adder)), :] \
-            #         = patch.permute([1, 2, 0])[:77, :77, :]
-            #     else:
-            #         img[round(s * adder) + y_id * s:y_id * s + round(s * (1 + adder)),
-            #         round(s * adder) + x_id * s:x_id * s + round(s * (1 + adder)), :] \
-            #         = patch.permute([1, 2, 0])[:, :77, :]
-            # elif(y_id + 1 == m_grid and adder > 0.0):
-            #     img[round(s * adder) + y_id * s:y_id * s + round(s * (1 + adder)),
-            #         round(s * adder) + x_id * s:x_id * s + round(s * (1 + adder)), :] \
-            #         = patch.permute([1, 2, 0])[:77, :, :]
-            # else:
-            #     img[round(s * adder) + y_id * s:y_id * s + round(s * (1 + adder)),
-            #        round(s * adder) + x_id * s:x_id * s + round(s * (1 + adder)), :] \
-            #     = patch.permute([1, 2, 0])
             patch = img_batch[y_id * m_grid + x_id, :, :, :]
             img[y_id * s:y_id * s + s, x_id * s:x_id * s + s, :] \
                 = patch.permute([1, 2, 0])
@@ -295,6 +268,7 @@ def patches2img(img_batch, m_grid, adder, to_numpy=True):
 
 def create_transformed_brush(brush, canvas_w, canvas_h,
                              x0, y0, w, h, theta, R0, G0, B0):
+    # brush = cv2.resize(brush, (canvas_w, canvas_h), cv2.INTER_AREA)
     brush_alpha = np.stack([brush, brush, brush], axis=-1)
     brush_alpha = (brush_alpha > 0).astype(np.float32)
     brush_alpha = (brush_alpha * 255).astype(np.uint8)
@@ -367,36 +341,3 @@ def build_transformation_matrix(transform):
     transform_matrix[1, 2] = transform[1]
 
     return transform_matrix
-
-
-
-def preproc_camera_image(data, save_dir, experiment_id, img_name, batch_id):
-    from sys import flags
-    from os import stat
-    from sys import flags
-    import cv2
-    import base64
-    import pickle
-    import numpy as np
-    jpg_as_text = base64.b64decode(data['canvas_image'])
-    buffer = np.frombuffer(jpg_as_text, dtype=np.uint8)
-    image = cv2.imdecode(buffer, flags=1)
-    if os.path.exists(save_dir) is False: os.mkdir(save_dir)
-    experiment_dir = os.path.join(save_dir, experiment_id)
-    if os.path.exists(experiment_dir) is False: os.mkdir(experiment_dir)
-    image_path = os.path.join(experiment_dir, f'{img_name}_batch_{batch_id}.jpeg')
-    cv2.imwrite(image_path, image[:, :, [2, 1, 0]])
-    # ADD PREPROCESSING
-
-    img = cv2.imread(image_path, cv2.IMREAD_COLOR)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.
-    return img
-
-
-def take_screenshot(filename, shape):
-    return None
-    # Cam = PixelinkCam()
-    # Cam.take_screenshot(filename)
-    # preproc_camera_image(filename)
-    # photo = cv2.imread(filename)
-    # return cv2.resize(photo, (shape[1], shape[0]))

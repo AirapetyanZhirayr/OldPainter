@@ -1,0 +1,805 @@
+{
+ "common_data": {
+  "brush_tilt_threshold": 30
+ },
+ "commands": [
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 209.0,
+     "y": 40.0
+    },
+    "p1": {
+     "x": 213.0,
+     "y": 21.0
+    },
+    "p2": {
+     "x": 218.0,
+     "y": 1.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 235.0,
+     "y": 221.0
+    },
+    "p1": {
+     "x": 246.0,
+     "y": 233.0
+    },
+    "p2": {
+     "x": 258.0,
+     "y": 246.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 164.0,
+     "y": 196.0
+    },
+    "p1": {
+     "x": 169.0,
+     "y": 179.0
+    },
+    "p2": {
+     "x": 173.0,
+     "y": 161.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 247.0,
+     "y": 5.0
+    },
+    "p1": {
+     "x": 260.0,
+     "y": 13.0
+    },
+    "p2": {
+     "x": 274.0,
+     "y": 22.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 184.0,
+     "y": 138.0
+    },
+    "p1": {
+     "x": 188.0,
+     "y": 120.0
+    },
+    "p2": {
+     "x": 193.0,
+     "y": 102.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 200.0,
+     "y": 172.0
+    },
+    "p1": {
+     "x": 214.0,
+     "y": 180.0
+    },
+    "p2": {
+     "x": 228.0,
+     "y": 188.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 163.0,
+     "y": 241.0
+    },
+    "p1": {
+     "x": 174.0,
+     "y": 248.0
+    },
+    "p2": {
+     "x": 184.0,
+     "y": 254.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 276.0,
+     "y": 46.0
+    },
+    "p1": {
+     "x": 290.0,
+     "y": 50.0
+    },
+    "p2": {
+     "x": 304.0,
+     "y": 54.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 0
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 168.0,
+     "y": 66.0
+    },
+    "p1": {
+     "x": 180.0,
+     "y": 54.0
+    },
+    "p2": {
+     "x": 192.0,
+     "y": 43.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 135.0,
+     "y": 276.0
+    },
+    "p1": {
+     "x": 150.0,
+     "y": 280.0
+    },
+    "p2": {
+     "x": 164.0,
+     "y": 284.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 57.0,
+     "y": 232.0
+    },
+    "p1": {
+     "x": 62.0,
+     "y": 213.0
+    },
+    "p2": {
+     "x": 67.0,
+     "y": 194.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 34.0,
+     "y": 69.0
+    },
+    "p1": {
+     "x": 48.0,
+     "y": 76.0
+    },
+    "p2": {
+     "x": 62.0,
+     "y": 82.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 56.0,
+     "y": 313.0
+    },
+    "p1": {
+     "x": 71.0,
+     "y": 311.0
+    },
+    "p2": {
+     "x": 86.0,
+     "y": 309.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 250.0,
+     "y": 190.0
+    },
+    "p1": {
+     "x": 263.0,
+     "y": 181.0
+    },
+    "p2": {
+     "x": 277.0,
+     "y": 173.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 196.0,
+     "y": 289.0
+    },
+    "p1": {
+     "x": 210.0,
+     "y": 296.0
+    },
+    "p2": {
+     "x": 224.0,
+     "y": 303.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 153.0,
+     "y": 82.0
+    },
+    "p1": {
+     "x": 168.0,
+     "y": 77.0
+    },
+    "p2": {
+     "x": 182.0,
+     "y": 73.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 75.0,
+     "y": 256.0
+    },
+    "p1": {
+     "x": 90.0,
+     "y": 253.0
+    },
+    "p2": {
+     "x": 105.0,
+     "y": 250.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 35.0,
+     "y": 190.0
+    },
+    "p1": {
+     "x": 48.0,
+     "y": 200.0
+    },
+    "p2": {
+     "x": 62.0,
+     "y": 209.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 28.0,
+     "y": 315.0
+    },
+    "p1": {
+     "x": 40.0,
+     "y": 304.0
+    },
+    "p2": {
+     "x": 52.0,
+     "y": 292.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 163.0,
+     "y": 304.0
+    },
+    "p1": {
+     "x": 171.0,
+     "y": 287.0
+    },
+    "p2": {
+     "x": 179.0,
+     "y": 270.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 41.0,
+     "y": 153.0
+    },
+    "p1": {
+     "x": 54.0,
+     "y": 153.0
+    },
+    "p2": {
+     "x": 67.0,
+     "y": 153.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 56.0,
+     "y": 128.0
+    },
+    "p1": {
+     "x": 70.0,
+     "y": 120.0
+    },
+    "p2": {
+     "x": 84.0,
+     "y": 112.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 274.0,
+     "y": 214.0
+    },
+    "p1": {
+     "x": 288.0,
+     "y": 217.0
+    },
+    "p2": {
+     "x": 302.0,
+     "y": 220.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 128.0,
+     "y": 249.0
+    },
+    "p1": {
+     "x": 143.0,
+     "y": 251.0
+    },
+    "p2": {
+     "x": 158.0,
+     "y": 254.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 202.0,
+     "y": 84.0
+    },
+    "p1": {
+     "x": 216.0,
+     "y": 88.0
+    },
+    "p2": {
+     "x": 231.0,
+     "y": 93.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 1
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 229.0,
+     "y": 303.0
+    },
+    "p1": {
+     "x": 238.0,
+     "y": 287.0
+    },
+    "p2": {
+     "x": 246.0,
+     "y": 270.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 122.0,
+     "y": 266.0
+    },
+    "p1": {
+     "x": 132.0,
+     "y": 280.0
+    },
+    "p2": {
+     "x": 141.0,
+     "y": 294.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 20.0,
+     "y": 61.0
+    },
+    "p1": {
+     "x": 35.0,
+     "y": 60.0
+    },
+    "p2": {
+     "x": 50.0,
+     "y": 59.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 11.0,
+     "y": 318.0
+    },
+    "p1": {
+     "x": 20.0,
+     "y": 333.0
+    },
+    "p2": {
+     "x": 28.0,
+     "y": 349.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 3.0,
+     "y": 78.0
+    },
+    "p1": {
+     "x": 13.0,
+     "y": 63.0
+    },
+    "p2": {
+     "x": 24.0,
+     "y": 48.0
+    }
+   }
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 2
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 197.0,
+     "y": 322.0
+    },
+    "p1": {
+     "x": 210.0,
+     "y": 313.0
+    },
+    "p2": {
+     "x": 223.0,
+     "y": 304.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 138.0,
+     "y": 39.0
+    },
+    "p1": {
+     "x": 149.0,
+     "y": 53.0
+    },
+    "p2": {
+     "x": 159.0,
+     "y": 68.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 3
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 105.0,
+     "y": 169.0
+    },
+    "p1": {
+     "x": 111.0,
+     "y": 151.0
+    },
+    "p2": {
+     "x": 117.0,
+     "y": 132.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 128.0,
+     "y": 285.0
+    },
+    "p1": {
+     "x": 133.0,
+     "y": 304.0
+    },
+    "p2": {
+     "x": 137.0,
+     "y": 323.0
+    }
+   }
+  },
+  {
+   "action": "clear_brush"
+  },
+  {
+   "action": "color_brush",
+   "data": {
+    "color_num": 4
+   }
+  },
+  {
+   "action": "test_stroke"
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 273.0,
+     "y": 322.0
+    },
+    "p1": {
+     "x": 282.0,
+     "y": 337.0
+    },
+    "p2": {
+     "x": 291.0,
+     "y": 352.0
+    }
+   }
+  },
+  {
+   "action": "spline_stroke",
+   "data": {
+    "p0": {
+     "x": 0.0,
+     "y": 377.0
+    },
+    "p1": {
+     "x": 10.0,
+     "y": 362.0
+    },
+    "p2": {
+     "x": 20.0,
+     "y": 348.0
+    }
+   }
+  }
+ ]
+}
